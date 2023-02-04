@@ -67,7 +67,7 @@ namespace Unity.Custom
             Regex regIsTracker = new Regex("tracker[0-9]{0,1}.*");  // TODO: 仕様見てちゃんとする
             if(!regIsTracker.IsMatch(address)) return;
 
-            Debug.Log($"Received a tracker data. data cnt : {data.GetElementCount()}");
+            // Debug.Log($"Received a tracker data. data cnt : {data.GetElementCount()}");
 
             int id = -999;
             // TODO: インデックス取得
@@ -81,7 +81,6 @@ namespace Unity.Custom
                 catch (FormatException e)
                 {
                     Console.WriteLine(e.Message);
-                    throw;
                 }
             }
 
@@ -94,10 +93,10 @@ namespace Unity.Custom
                 // TODO: tx, ty, tz取得
                 Regex regTx = new Regex("tracker[0-9]{0,1}:tx");  // TODO: 仕様見てちゃんとする
                 Regex regTy = new Regex("tracker[0-9]{0,1}:ty");  // TODO: 仕様見てちゃんとする
-                Regex regTz = new Regex("tracker[0-9]{0,1}:ty");  // TODO: 仕様見てちゃんとする
+                Regex regTz = new Regex("tracker[0-9]{0,1}:tz");  // TODO: 仕様見てちゃんとする
                 Regex regRx = new Regex("tracker[0-9]{0,1}:rx");  // TODO: 仕様見てちゃんとする
                 Regex regRy = new Regex("tracker[0-9]{0,1}:ry");  // TODO: 仕様見てちゃんとする
-                Regex regRz = new Regex("tracker[0-9]{0,1}:ry");  // TODO: 仕様見てちゃんとする
+                Regex regRz = new Regex("tracker[0-9]{0,1}:rz");  // TODO: 仕様見てちゃんとする
 
                 if(regTx.IsMatch(address)) trackerData.tx = data.GetElementAsFloat(0);
                 if(regTy.IsMatch(address)) trackerData.ty = data.GetElementAsFloat(0);
