@@ -5,10 +5,10 @@ using Unity.Custom;
 namespace Unity.Custom
 {
 
-  public class DisplayManager : MonoBehaviour
+  public class ScreenManager : MonoBehaviour
   {
 
-    [SerializeField] List<Display> m_Displays = new List<Display>();
+    [SerializeField] List<Screen> m_Displays = new List<Screen>();
 
     void Awake()
     {

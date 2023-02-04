@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Unity.Custom
 {
 
-  public class Display : MonoBehaviour
+  public class Screen : MonoBehaviour
   {
 
 
