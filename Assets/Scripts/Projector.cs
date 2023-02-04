@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Unity.Custom
 {
     [ExecuteAlways]
-    [DefaultExecutionOrder(10000)] // ExecutionOrderは適宜設定
+    [DefaultExecutionOrder(0)] // ExecutionOrderは適宜設定
     public class Projector : MonoBehaviour
     {
         [SerializeField, Range(0.0001f, 179)]

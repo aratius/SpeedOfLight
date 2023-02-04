@@ -46,7 +46,7 @@ Shader "Custom/Screen"
                 half4 color = 1;
                 i.projectorSpacePos.xyz /= i.projectorSpacePos.w;
                 float2 uv = i.projectorSpacePos.xy;
-                float4 projectorTex = tex2D(_ProjectorTexture, uv);
+                float4 projectorTex = tex2D(_ProjectorTexture, frac(uv * 10.));
                 // カメラの範囲外には適用しない
                 fixed3 isOut = step((i.projectorSpacePos - 0.5) * sign(i.projectorSpacePos), 0.5);
                 float alpha = isOut.x * isOut.y * isOut.z;

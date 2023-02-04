@@ -44,6 +44,18 @@ namespace Unity.Custom
         List<Tracker> m_TrackerList = new List<Tracker>();
         List<TrackerData> m_TrackerDataList = new List<TrackerData>();
 
+        public Vector3 GetPositionFromIndex(int i)
+        {
+            if(i < 0 || i > m_TrackerList.Count - 1) return Vector3.zero;
+            return m_TrackerList[i].transform.position;
+        }
+
+        public Quaternion GetRotationFromIndex(int i)
+        {
+            if(i < 0 || i > m_TrackerList.Count - 1) return Quaternion.identity;
+            return m_TrackerList[i].transform.rotation;
+        }
+
         void Start()
         {
             OscReceiver.Instance.AddCallback("", CheckData);
