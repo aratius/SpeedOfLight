@@ -24,10 +24,8 @@ namespace Unity.Custom
         {
             for(int i = 0; i < m_Corners.Length; i++)
             {
-                Vector3 corner = m_Corners[i];
-                Vector3 nextCorner = i + 1 < m_Corners.Length ? m_Corners[i + 1] : m_Corners[0];
-                Debug.DrawLine(corner, nextCorner, Color.blue);
-                Debug.Log($"c{i} : {corner}, c{i+1} : {nextCorner}");
+                int nextIndex = i + 1 < m_Corners.Length ? i + 1 : 0;
+                Debug.DrawLine(m_Corners[i], m_Corners[nextIndex], Color.blue);
             }
         }
 
@@ -66,7 +64,6 @@ namespace Unity.Custom
                 else if(regTy.IsMatch(address)) m_Corners[index].y = data.GetElementAsFloat(0);
                 else if(regTz.IsMatch(address)) m_Corners[index].z = data.GetElementAsFloat(0);
 
-                // Debug.Log($"corner{id} : {corner}");
             }
         }
 
