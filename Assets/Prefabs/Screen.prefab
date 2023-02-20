@@ -109,6 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 501dd00ba8386464c984f3ada06793b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Camera: {fileID: 1960455318483494567}
 --- !u!1 &1960455318483494565
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,7 +175,7 @@ Camera:
     m_Bits: 256
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 1
+  m_TargetDisplay: 7
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1

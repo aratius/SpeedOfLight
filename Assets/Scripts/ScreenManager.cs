@@ -17,15 +17,15 @@ namespace Unity.Custom
 
     void Update()
     {
-      if(Input.GetKeyDown(KeyCode.Return))
+      if (Input.GetKeyDown(KeyCode.Return))
       {
-        if(m_TrackerManager.current)
+        if (m_TrackerManager.current)
         {
           bool hasAttached = false;
-          foreach(GameObject tracker in m_AttachedTrackerList)
-            if(tracker.Equals(m_TrackerManager.current))
+          foreach (GameObject tracker in m_AttachedTrackerList)
+            if (tracker.Equals(m_TrackerManager.current))
               hasAttached = true;
-          if(hasAttached)
+          if (hasAttached)
           {
             // TODO: 確認モーダル（二重だけどいいですか？）OKならAdd
             Add(new Vector3(1, .5f, .01f), m_TrackerManager.current, Vector3.zero);
@@ -42,7 +42,7 @@ namespace Unity.Custom
     public void Add(Vector3 size, GameObject tracker, Vector3 offset)
     {
       GameObject screen = Instantiate(m_ScreenPrefab, transform);
-      screen.GetComponent<Screen>().Init(size, tracker, offset);
+      screen.GetComponent<Screen>().Init(size, tracker, offset, m_ScreenList.Count + 1/* NOTE: 2から */);
       m_ScreenList.Add(screen);
     }
 
@@ -50,7 +50,7 @@ namespace Unity.Custom
     {
       foreach (GameObject screen in m_ScreenList)
       {
-        if(screen.Equals(target))
+        if (screen.Equals(target))
         {
           m_ScreenList.Remove(screen);
           Destroy(screen);
