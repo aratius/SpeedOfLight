@@ -77,7 +77,13 @@ namespace Unity.Custom
                         m_SelectedTracker = go;
                     }
                 }
+                else
+                {
+                    if(m_SelectedTracker) m_SelectedTracker.GetComponent<Outline>().OutlineWidth = 0;
+                    m_SelectedTracker = null;
+                }
             }
+
         }
 
         async void CheckData(string address, OscDataHandle data)

@@ -13,12 +13,29 @@ namespace Unity.Custom
     [SerializeField] TrackerManager m_TrackerManager;
 
     List<GameObject> m_ScreenList = new List<GameObject>();
+    List<GameObject> m_AttachedTrackerList = new List<GameObject>();
 
     void Update()
     {
       if(Input.GetKeyDown(KeyCode.S))
       {
-        Add(new Vector3(1, .5f, .01f), m_TrackerManager.current, Vector3.zero);
+        if(m_TrackerManager.current)
+        {
+          bool hasAttached = false;
+          foreach(GameObject tracker in m_AttachedTrackerList)
+            if(tracker.Equals(m_TrackerManager.current))
+              hasAttached = true;
+          if(hasAttached)
+          {
+            // TODO: 確認モーダル（二重だけどいいですか？）OKならAdd
+            Add(new Vector3(1, .5f, .01f), m_TrackerManager.current, Vector3.zero);
+          }
+          else
+          {
+            m_AttachedTrackerList.Add(m_TrackerManager.current);
+            Add(new Vector3(1, .5f, .01f), m_TrackerManager.current, Vector3.zero);
+          }
+        }
       }
     }
 

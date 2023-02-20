@@ -16,6 +16,9 @@ public class OrbitControls : MonoBehaviour
 	public float xSpeed = 20;
 	public float ySpeed = 20;
 
+	[Header("カメラ移動速度")]
+	public float moveSpeed = .001f;
+
 	[Header("カメラズーム速度")]
 	public float zoomSpeed = 1;
 
@@ -288,7 +291,7 @@ public class OrbitControls : MonoBehaviour
 		// カメラの方向から、X-Z平面の単位ベクトルを取得
 		Vector3 cameraForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
 		// 移動ベクトル作成
-		Vector3 direction_v = cameraForward * dy + Camera.main.transform.right * dx;
+		Vector3 direction_v = cameraForward * dy * moveSpeed + Camera.main.transform.right * dx * moveSpeed;
 
 		Debug.Log(direction_v);
 		// 移動
