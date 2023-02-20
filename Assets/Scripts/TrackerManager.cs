@@ -43,18 +43,9 @@ namespace Unity.Custom
         [SerializeField] GameObject m_TrackerPrefab;
         List<Tracker> m_TrackerList = new List<Tracker>();
         List<TrackerData> m_TrackerDataList = new List<TrackerData>();
+        GameObject m_SelectedTracker;
 
-        public Vector3 GetPositionFromIndex(int i)
-        {
-            if(i < 0 || i > m_TrackerList.Count - 1) return Vector3.zero;
-            return m_TrackerList[i].transform.position;
-        }
-
-        public Quaternion GetRotationFromIndex(int i)
-        {
-            if(i < 0 || i > m_TrackerList.Count - 1) return Quaternion.identity;
-            return m_TrackerList[i].transform.rotation;
-        }
+        public GameObject current => m_SelectedTracker;
 
         void Start()
         {
@@ -68,15 +59,31 @@ namespace Unity.Custom
                 Tracker tracker = m_TrackerList[i];
                 TrackerData trackerData = m_TrackerDataList[i];
                 tracker.transform.localPosition = new Vector3(trackerData.tx, trackerData.ty, trackerData.tz);
-                // tracker.transform.localRotation = Quaternion.Euler(new Vector3(trackerData.rx, trackerData.ry, trackerData.rz));
-                tracker.transform.localEulerAngles = new Vector3(trackerData.rx, trackerData.ry, trackerData.rz);  // TODO: ちゃんと原因調べる
+                tracker.transform.localEulerAngles = new Vector3(trackerData.rx, trackerData.ry, trackerData.rz);  // TODO: ちゃんと原因調べる TDでQuaternionに変換して送る
+            }
+
+            if (Input.GetMouseButtonDown(0)) // 左クリック
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); // Rayを生成
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit)) // Rayを投射
+                {
+                    GameObject go = hit.collider.gameObject;
+                    Outline outline = go.GetComponent<Outline>();
+                    if(outline != null)
+                    {
+                        if(m_SelectedTracker) m_SelectedTracker.GetComponent<Outline>().OutlineWidth = 0;
+                        outline.OutlineWidth = 10;
+                        m_SelectedTracker = go;
+                    }
+                }
             }
         }
 
         async void CheckData(string address, OscDataHandle data)
         {
-
             if(data.GetElementCount() == 0) return;
+
 
             // NOTE: アドレスチェック
             Regex regIsTracker = new Regex("/tracker[0-9]{1,2}.*");  // TODO: 仕様見てちゃんとする
@@ -102,6 +109,7 @@ namespace Unity.Custom
 
             if(index >= 0)
             {
+
                 if(index > m_TrackerDataList.Count - 1) await FillTrackers(index + 1);
 
                 TrackerData trackerData = m_TrackerDataList[index];

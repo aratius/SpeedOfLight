@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
-using Unity.Custom;
 using DG.Tweening;
+using Unity.Custom;
 
 namespace Unity.Custom
 {
@@ -9,39 +9,35 @@ namespace Unity.Custom
   public class ScreenManager : MonoBehaviour
   {
 
+    [SerializeField] GameObject m_ScreenPrefab;
     [SerializeField] TrackerManager m_TrackerManager;
-    [SerializeField] List<Screen> m_Screens = new List<Screen>();
-    int m_Index = 0;
 
-    void Awake()
-    {
-
-    }
+    List<GameObject> m_ScreenList = new List<GameObject>();
 
     void Update()
     {
-      if(Input.GetKey(KeyCode.Alpha0))
+      if(Input.GetKeyDown(KeyCode.S))
       {
-        m_Index = 0;
+        Add(new Vector3(1, .5f, .01f), m_TrackerManager.current, Vector3.zero);
       }
-      else if(Input.GetKey(KeyCode.Alpha1))
-      {
-        m_Index = 1;
-      }
-      else if(Input.GetKey(KeyCode.Alpha2))
-      {
-        m_Index = 2;
-      }
+    }
 
-      foreach (Screen screen in m_Screens)
-      {
-        Vector3 position = m_TrackerManager.GetPositionFromIndex(m_Index);
-        Quaternion rotation = m_TrackerManager.GetRotationFromIndex(m_Index);
-        // screen.transform.position = position;
-        screen.transform.DOMove(position - Vector3.forward * .25f, .5f).SetEase(Ease.OutSine);
-        // screen.transform.rotation = rotation;
-        screen.transform.DORotate(rotation.eulerAngles, .5f).SetEase(Ease.OutSine);
+    public void Add(Vector3 size, GameObject tracker, Vector3 offset)
+    {
+      GameObject screen = Instantiate(m_ScreenPrefab, transform);
+      screen.GetComponent<Screen>().Init(size, tracker, offset);
+      m_ScreenList.Add(screen);
+    }
 
+    public void Remove(GameObject target)
+    {
+      foreach (GameObject screen in m_ScreenList)
+      {
+        if(screen.Equals(target))
+        {
+          m_ScreenList.Remove(screen);
+          Destroy(screen);
+        }
       }
     }
 
