@@ -20,6 +20,7 @@ namespace Unity.Custom
     {
       if(!m_Tracker) return;
       transform.localPosition = m_Tracker.transform.localPosition + m_Offset;
+      transform.localRotation = m_Tracker.transform.localRotation;
     }
 
   }
