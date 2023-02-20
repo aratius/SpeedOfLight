@@ -17,7 +17,7 @@ namespace Unity.Custom
 
     void Update()
     {
-      if(Input.GetKeyDown(KeyCode.S))
+      if(Input.GetKeyDown(KeyCode.Return))
       {
         if(m_TrackerManager.current)
         {
