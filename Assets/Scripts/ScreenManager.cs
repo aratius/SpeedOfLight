@@ -28,7 +28,8 @@ namespace Unity.Custom
           if (hasAttached)
           {
             // TODO: 確認モーダル（二重だけどいいですか？）OKならAdd
-            Add(new Vector3(1, .5f, .01f), m_TrackerManager.current, Vector3.zero);
+            Debug.Log("### 重複OK?");
+            // Add(new Vector3(1, .5f, .01f), m_TrackerManager.current, Vector3.zero);
           }
           else
           {
