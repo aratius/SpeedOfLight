@@ -23,6 +23,7 @@ namespace Unity.Custom
 
     public int value
     {
+      set => m_Value = Mathf.Clamp(value, m_Min, m_Max);
       get => m_Value;
     }
 
@@ -44,8 +45,14 @@ namespace Unity.Custom
       {
         m_Slider.value = Utils.LinearEquationThrough2Points((float)m_Min, (float)m_Max, 0, 1f)((float)m_Value);
         m_Input.text = m_Value.ToString();
+        m_OnChange.Invoke();
       }
       m_LastValue = m_Value;
+    }
+
+    public void Reset()
+    {
+      m_Value = m_InitialValue;
     }
 
     void OnSliderValueChanged(float value)

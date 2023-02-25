@@ -9,13 +9,25 @@ namespace Unity.Custom
     [SerializeField] Camera m_Camera;
     GameObject? m_Tracker;
     Vector3 m_Offset;
+    string m_Key;
 
-    public void Init(Vector3 size, GameObject tracker, Vector3 offset, int displayIndex)
+    public string key => m_Key;
+
+    public void Init(string key, Vector3 size, GameObject tracker, Vector3 offset, int displayIndex)
     {
+      m_Key = key;
       transform.localScale = size;
       m_Tracker = tracker;
       m_Offset = offset;
       m_Camera.targetDisplay = displayIndex;
+      ApplyTransform();
+    }
+
+    public void UpdateInfo(Vector3 size, Vector3 offset, int? displayIndex = null)
+    {
+      transform.localScale = size;
+      m_Offset = offset;
+      m_Camera.targetDisplay = displayIndex == null ? m_Camera.targetDisplay : (int)displayIndex;
       ApplyTransform();
     }
 
