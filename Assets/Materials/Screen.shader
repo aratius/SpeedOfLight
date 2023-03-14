@@ -7,6 +7,8 @@ Shader "Custom/Screen"
         Pass
         {
             CGPROGRAM
+// Upgrade NOTE: excluded shader from DX11; has structs without semantics (struct v2f members distance)
+#pragma exclude_renderers d3d11
             #pragma vertex vert
             #pragma fragment frag
 
@@ -24,11 +26,14 @@ Shader "Custom/Screen"
                 float4 projectorSpacePos : TEXCOORD0;
                 float3 worldPos : TEXCOORD1;
                 float3 worldNormal : TEXCOORD2;
+                float2 distance : TEXCOORD3;
             };
 
             sampler2D _ProjectorTexture;
             float4x4 _ProjectorMatrixVP;
             float4 _ProjectorPos;
+            float _DMin;
+            float _DMax;
 
             v2f vert (appdata v)
             {
@@ -38,11 +43,14 @@ Shader "Custom/Screen"
                 o.projectorSpacePos = ComputeScreenPos(o.projectorSpacePos);
                 o.worldNormal = UnityObjectToWorldNormal(v.normal);
                 o.worldPos = mul(unity_ObjectToWorld, v.vertex);
+                o.distance = fixed2(length(_ProjectorPos.xyz - mul(unity_ObjectToWorld, v.vertex)), 0.);
                 return o;
             }
 
             fixed4 frag (v2f i) : SV_Target
             {
+                float dNormalized = (1 - 0) / (_DMax - _DMin) * (i.distance.x - _DMin) + 0;
+                return fixed4(fixed3(dNormalized, dNormalized, dNormalized), 1.);
                 half4 color = 1;
                 i.projectorSpacePos.xyz /= i.projectorSpacePos.w;
                 float2 uv = i.projectorSpacePos.xy;
