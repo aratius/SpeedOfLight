@@ -18,26 +18,28 @@ namespace Unity.Custom
     private bool _orthographic = false;
     [SerializeField]
     private float _orthographicSize = 1.0f;
-    [SerializeField]
-    private Texture2D _texture;
     [SerializeField, Range(0.0001f, 10f)]
     private float _distMin = 2f;
     [SerializeField, Range(0.0001f, 10f)]
     private float _distMax = 4f;
+    [SerializeField]
+    private Material _material;
+    [SerializeField]
+    private Texture _videoTexture;
+    private SlitScan _slitScan;
 
     void Start()
     {
       Shader.SetGlobalFloat("_DMin", _distMin);
       Shader.SetGlobalFloat("_DMax", _distMax);
+      _slitScan = new SlitScan(_material);
     }
 
     // とりあえず今回はLateUpdateで更新
     private void LateUpdate()
     {
-      if (_texture == null)
-      {
-        return;
-      }
+      if (_slitScan == null) return;
+
       var viewMatrix = Matrix4x4.Scale(new Vector3(1, 1, -1)) * transform.worldToLocalMatrix;
       Matrix4x4 projectionMatrix;
       if (_orthographic)
@@ -52,13 +54,14 @@ namespace Unity.Custom
       }
       projectionMatrix = GL.GetGPUProjectionMatrix(projectionMatrix, true);
       Shader.SetGlobalMatrix("_ProjectorMatrixVP", projectionMatrix * viewMatrix);
-      Shader.SetGlobalTexture("_ProjectorTexture", _texture);
       // プロジェクターの位置を渡す
       // _ObjectSpaceLightPosのような感じでwに0が入っていたらOrthographicの前方方向とみなす
       var projectorPos = Vector4.zero;
       projectorPos = _orthographic ? transform.forward : transform.position;
       projectorPos.w = _orthographic ? 0 : 1;
       Shader.SetGlobalVector("_ProjectorPos", projectorPos);
+
+      _slitScan.Update(_videoTexture);
     }
 
     private void OnDrawGizmos()

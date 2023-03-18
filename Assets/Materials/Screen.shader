@@ -1,18 +1,27 @@
 Shader "Custom/Screen"
 {
+
+    Properties
+    {
+        _BufferTex("", 2DArray) = "" {}
+    }
+
     SubShader
     {
         Tags { "RenderType"="Opaque" }
 
         Pass
         {
+            // Cull off ZTest Always
             CGPROGRAM
-// Upgrade NOTE: excluded shader from DX11; has structs without semantics (struct v2f members distance)
-#pragma exclude_renderers d3d11
             #pragma vertex vert
             #pragma fragment frag
 
             #include "UnityCG.cginc"
+            #define RESOLUTION 256
+
+            UNITY_DECLARE_TEX2DARRAY(_BufferTex);
+            uint _Frame;
 
             struct appdata
             {
@@ -35,6 +44,14 @@ Shader "Custom/Screen"
             float _DMin;
             float _DMax;
 
+            //スリットスキャン結果の過去のテクスチャを返却
+            float3 GetHistory(float2 uv, uint offset)
+            {
+                uint i = (_Frame + RESOLUTION - offset) & (RESOLUTION - 1);
+                // uv.y = lerp(uv.y, 1 - uv.y, _VFlip);
+                return UNITY_SAMPLE_TEX2DARRAY(_BufferTex, float3(frac(uv * 3), i)).rgb;
+            }
+
             v2f vert (appdata v)
             {
                 v2f o;
@@ -49,18 +66,26 @@ Shader "Custom/Screen"
 
             fixed4 frag (v2f i) : SV_Target
             {
-                float dNormalized = (1 - 0) / (_DMax - _DMin) * (i.distance.x - _DMin) + 0;
-                return fixed4(fixed3(dNormalized, dNormalized, dNormalized), 1.);
-                half4 color = 1;
+                // half4 color = 1;
                 i.projectorSpacePos.xyz /= i.projectorSpacePos.w;
                 float2 uv = i.projectorSpacePos.xy;
-                float4 projectorTex = tex2D(_ProjectorTexture, frac(uv * 10.));
+
+                // NOTE: エリア内で正規化したデプステクスチャ
+                float dNormalized = (1 - 0) / (_DMax - _DMin) * (i.distance.x - _DMin) + 0;
+                // return fixed4(fixed3(dNormalized, dNormalized, dNormalized), 1.);
+                float delay = dNormalized * (RESOLUTION - 2);
+                uint offset = (uint)delay;
+                float3 p1 = GetHistory(uv, offset + 0);
+                float3 p2 = GetHistory(uv, offset + 1);
+                float4 color = float4(lerp(p1, p2, frac(delay)), 1);
+
                 // カメラの範囲外には適用しない
                 fixed3 isOut = step((i.projectorSpacePos - 0.5) * sign(i.projectorSpacePos), 0.5);
                 float alpha = isOut.x * isOut.y * isOut.z;
                 // プロジェクターから見て裏側の面には適用しない
                 alpha *= step(-dot(lerp(-_ProjectorPos.xyz, _ProjectorPos.xyz - i.worldPos, _ProjectorPos.w), i.worldNormal), 0);
-                return projectorTex * alpha;
+
+                return color * alpha;
             }
             ENDCG
         }
