@@ -27,7 +27,7 @@ namespace Unity.Custom
     [SerializeField]
     private Texture _videoTexture;
     private SlitScan _slitScan;
-    private float _slitScanEnable = 0;
+    private float _slitScanEnable = 1;
 
     void Start()
     {
