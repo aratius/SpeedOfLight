@@ -27,11 +27,13 @@ namespace Unity.Custom
     [SerializeField]
     private Texture _videoTexture;
     private SlitScan _slitScan;
+    private float _slitScanEnable = 0;
 
     void Start()
     {
       Shader.SetGlobalFloat("_DMin", _distMin);
       Shader.SetGlobalFloat("_DMax", _distMax);
+      Shader.SetGlobalFloat("_Enable", _slitScanEnable);
       _slitScan = new SlitScan(_material);
     }
 
@@ -82,6 +84,12 @@ namespace Unity.Custom
       }
 
       Gizmos.matrix = gizmosMatrix;
+    }
+
+    public void ToggleSlitScan()
+    {
+      _slitScanEnable++;
+      Shader.SetGlobalFloat("_Enable", _slitScanEnable % 2);
     }
   }
 }

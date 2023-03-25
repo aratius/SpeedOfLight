@@ -43,6 +43,7 @@ Shader "Custom/Screen"
             float4 _ProjectorPos;
             float _DMin;
             float _DMax;
+            float _Enable;
 
             //スリットスキャン結果の過去のテクスチャを返却
             float3 GetHistory(float2 uv, uint offset)
@@ -73,11 +74,20 @@ Shader "Custom/Screen"
                 // NOTE: エリア内で正規化したデプステクスチャ
                 float dNormalized = (1 - 0) / (_DMax - _DMin) * (i.distance.x - _DMin) + 0;
                 // return fixed4(fixed3(dNormalized, dNormalized, dNormalized), 1.);
-                float delay = dNormalized * (RESOLUTION - 2);
-                uint offset = (uint)delay;
-                float3 p1 = GetHistory(uv, offset + 0);
-                float3 p2 = GetHistory(uv, offset + 1);
-                float4 color = float4(lerp(p1, p2, frac(delay)), 1);
+
+
+                float3 color = float3(0, 0, 0);
+                for(uint j = 0; j < 8; j++) {
+                    float delay = dNormalized * (RESOLUTION - 2);
+                    uint offset = (uint)delay + j * 1;
+                    offset *= _Enable;
+                    float3 p1 = GetHistory(uv, offset + 0);
+                    float3 p2 = GetHistory(uv, offset + 1);
+                    float3 c = lerp(p1, p2, frac(delay));
+                    float h = j / 8.0 * 6 - 2;
+                    c *= saturate(float3(abs(h - 1) - 1, 2 - abs(h), 2 - abs(h - 2)));
+                    color += c / 4;
+                }
 
                 // カメラの範囲外には適用しない
                 fixed3 isOut = step((i.projectorSpacePos - 0.5) * sign(i.projectorSpacePos), 0.5);
@@ -85,7 +95,7 @@ Shader "Custom/Screen"
                 // プロジェクターから見て裏側の面には適用しない
                 alpha *= step(-dot(lerp(-_ProjectorPos.xyz, _ProjectorPos.xyz - i.worldPos, _ProjectorPos.w), i.worldNormal), 0);
 
-                return color * alpha;
+                return float4(color, 1) * alpha;
             }
             ENDCG
         }
