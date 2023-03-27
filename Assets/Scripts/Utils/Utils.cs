@@ -17,6 +17,7 @@ namespace Unity.Custom
     {
       return (float x) =>
       {
+        // return (y2 - y1) / (x2 - x1) * x + (x2 * y1 - x1 * y2) / (x2 - x1);
         return (y2 - y1) / (x2 - x1) * x + (x2 * y1 - x1 * y2) / (x2 - x1);
       };
     }

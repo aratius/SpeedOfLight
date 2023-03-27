@@ -45,12 +45,12 @@ namespace Unity.Custom
     public static Dictionary<string, ScreenInfo> caches = new Dictionary<string, ScreenInfo>();
 
     public bool hasAttached = false;
-    [SerializeField] IntValueUI m_Width;
-    [SerializeField] IntValueUI m_Height;
-    [SerializeField] IntValueUI m_Depth;
-    [SerializeField] IntValueUI m_OffsetX;
-    [SerializeField] IntValueUI m_OffsetY;
-    [SerializeField] IntValueUI m_OffsetZ;
+    [SerializeField] FloatValueUI m_Width;
+    [SerializeField] FloatValueUI m_Height;
+    [SerializeField] FloatValueUI m_Depth;
+    [SerializeField] FloatValueUI m_OffsetX;
+    [SerializeField] FloatValueUI m_OffsetY;
+    [SerializeField] FloatValueUI m_OffsetZ;
     [SerializeField] TMP_Text m_TrackerName;
     [SerializeField] Button m_Button;
 
@@ -100,12 +100,12 @@ namespace Unity.Custom
     {
       hasAttached = true;
       name = source.name;
-      m_Width.value = (int)(source.width * 100f);
-      m_Height.value = (int)(source.height * 100f);
-      m_Depth.value = (int)(source.depth * 100f);
-      m_OffsetX.value = (int)(source.offsetX * 100f);
-      m_OffsetY.value = (int)(source.offsetY * 100f);
-      m_OffsetZ.value = (int)(source.offsetZ * 100f);
+      m_Width.value = source.width * 100f;
+      m_Height.value = source.height * 100f;
+      m_Depth.value = source.depth * 100f;
+      m_OffsetX.value = source.offsetX * 100f;
+      m_OffsetY.value = source.offsetY * 100f;
+      m_OffsetZ.value = source.offsetZ * 100f;
     }
 
     void OnChange()
