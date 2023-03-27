@@ -64,7 +64,8 @@ namespace Unity.Custom
         Tracker tracker = m_TrackerList[i];
         TrackerData trackerData = m_TrackerDataList[i];
         tracker.transform.localPosition = new Vector3(trackerData.tx, trackerData.ty, trackerData.tz);
-        tracker.transform.localEulerAngles = new Vector3(trackerData.rx, trackerData.ry, trackerData.rz);  // TODO: ちゃんと原因調べる TDでQuaternionに変換して送る
+        // tracker.transform.localEulerAngles = new Vector3(trackerData.rx, trackerData.ry, trackerData.rz);  // TODO: ちゃんと原因調べる TDでQuaternionに変換して送る
+        tracker.SetRotation(new Vector3(trackerData.rx, trackerData.ry, trackerData.rz));
       }
 
       if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) // 左クリック

@@ -40,8 +40,11 @@ namespace Unity.Custom
 
     void ApplyTransform()
     {
-      transform.localPosition = m_Tracker.transform.localPosition;
-      transform.localRotation = m_Tracker.transform.localRotation;
+      Vector3 p = m_Tracker.transform.localPosition;
+      Quaternion q = m_Tracker.transform.localRotation;
+      Vector3 r = m_Tracker.transform.eulerAngles;
+      if (p.x != 0 && p.y != 0 && p.z != 0) transform.localPosition = p;
+      if (r.x != 0 && r.y != 0 && r.z != 0) transform.localRotation = q;
       m_ScreenBody.transform.localPosition = m_Offset;
     }
 

@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class Tracker : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+  Quaternion m_Target;
+  float cnt = 0;
+
+  void Update()
+  {
+    Quaternion crr = transform.localRotation;
+    transform.localRotation = Quaternion.Slerp(crr, m_Target, .1f);
+  }
+
+  public void SetRotation(Vector3 eulerAngles)
+  {
+    m_Target = Quaternion.Euler(eulerAngles.x, eulerAngles.y, eulerAngles.z);
+    // transform.localRotation = Quaternion.Euler(eulerAngles.x, eulerAngles.y, eulerAngles.z);
+    // transform.localEulerAngles = eulerAngles;
+  }
+
 }
