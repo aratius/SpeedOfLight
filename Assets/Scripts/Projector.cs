@@ -1,4 +1,6 @@
 using UnityEngine;
+using OscJack;
+using Cysharp.Threading.Tasks;
 
 namespace Unity.Custom
 {
@@ -35,6 +37,14 @@ namespace Unity.Custom
       Shader.SetGlobalFloat("_DMax", _distMax);
       Shader.SetGlobalFloat("_Enable", _slitScanEnable);
       _slitScan = new SlitScan(_material);
+
+      OscReceiver.Instance.AddCallback("/projector:tx", (string address, OscDataHandle data) => ApplyInfo("tx", data.GetElementAsFloat(0)));
+      OscReceiver.Instance.AddCallback("/projector:ty", (string address, OscDataHandle data) => ApplyInfo("ty", data.GetElementAsFloat(0)));
+      OscReceiver.Instance.AddCallback("/projector:tz", (string address, OscDataHandle data) => ApplyInfo("tz", data.GetElementAsFloat(0)));
+      OscReceiver.Instance.AddCallback("/projector:rx", (string address, OscDataHandle data) => ApplyInfo("rx", data.GetElementAsFloat(0)));
+      OscReceiver.Instance.AddCallback("/projector:ry", (string address, OscDataHandle data) => ApplyInfo("ry", data.GetElementAsFloat(0)));
+      OscReceiver.Instance.AddCallback("/projector:rz", (string address, OscDataHandle data) => ApplyInfo("rz", data.GetElementAsFloat(0)));
+      OscReceiver.Instance.AddCallback("/projector:fov", (string address, OscDataHandle data) => ApplyInfo("fov", data.GetElementAsFloat(0)));
     }
 
     // とりあえず今回はLateUpdateで更新
@@ -91,5 +101,23 @@ namespace Unity.Custom
       _slitScanEnable++;
       Shader.SetGlobalFloat("_Enable", _slitScanEnable % 2);
     }
+
+    async void ApplyInfo(string type, float value)
+    {
+      await UniTask.WaitForFixedUpdate();
+      Vector3 p = transform.localPosition;
+      Vector3 r = transform.localEulerAngles;
+      if (type == "tx") p.x = value;
+      if (type == "ty") p.y = value;
+      if (type == "tz") p.z = value;
+      if (type == "rx") r.x = value;
+      if (type == "ry") r.y = value;
+      if (type == "rz") r.z = value;
+      if (type == "fov") _fieldOfView = value;
+
+      transform.localPosition = p;
+      transform.localEulerAngles = r;
+    }
+
   }
 }
