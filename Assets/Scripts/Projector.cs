@@ -37,6 +37,7 @@ namespace Unity.Custom
       Shader.SetGlobalFloat("_DMax", _distMax);
       Shader.SetGlobalFloat("_Enable", _slitScanEnable);
       _slitScan = new SlitScan(_material);
+      Application.targetFrameRate = 30;
 
       OscReceiver.Instance.AddCallback("/projector:tx", (string address, OscDataHandle data) => ApplyInfo("tx", data.GetElementAsFloat(0)));
       OscReceiver.Instance.AddCallback("/projector:ty", (string address, OscDataHandle data) => ApplyInfo("ty", data.GetElementAsFloat(0)));
