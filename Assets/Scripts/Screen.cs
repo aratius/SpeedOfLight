@@ -20,6 +20,8 @@ namespace Unity.Custom
     Vector3 m_Offset;
     string m_Key;
 
+    public GameObject body => m_ScreenBody;
+
     public bool cameraEnabled
     {
       get => m_Camera.enabled;
@@ -51,7 +53,7 @@ namespace Unity.Custom
 
     public void SetCamera(int displayIndex)
     {
-      if(displayIndex == 0)
+      if (displayIndex == 0)
       {
         m_Camera.enabled = false;
       }
@@ -64,16 +66,16 @@ namespace Unity.Custom
 
     public void SetOutline(OutlineType type)
     {
-      if(type == OutlineType.Focus)
+      if (type == OutlineType.Focus)
       {
         m_Outline.OutlineWidth = 30;
         m_Outline.OutlineColor = Color.red;
       }
-      else if(type == OutlineType.Null)
+      else if (type == OutlineType.Null)
       {
         m_Outline.OutlineWidth = 0;
       }
-      else if(type == OutlineType.Camera)
+      else if (type == OutlineType.Camera)
       {
         m_Outline.OutlineWidth = 30;
         m_Outline.OutlineColor = Color.HSVToRGB((float)m_Camera.targetDisplay / 8f, 1f, 1f);

@@ -49,6 +49,8 @@ namespace Unity.Custom
     List<ScreenData> m_ScreenDataList = new List<ScreenData>();
     Screen m_SelectedScreen;
 
+    public int length => m_ScreenList.Count;
+
     public Screen Get(int index)
     {
       return m_ScreenList[index];
