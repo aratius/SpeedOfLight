@@ -5,16 +5,17 @@ public class Box : MonoBehaviour
 
   [SerializeField] GameObject m_Floor;
   Camera m_CaptureCamera;
+  Camera m_DrawCamera;
   GameObject m_Target;
   Vector3 m_LowestPoint;
   Vector3 m_SidePoint;
   Vector3 m_CenterPoint;
 
-  public void Init(GameObject target, Camera captureCamera)
+  public void Init(GameObject target, Camera captureCamera, Camera drawCamera)
   {
     m_Target = target;
     m_CaptureCamera = captureCamera;
-
+    m_DrawCamera = drawCamera;
     Calculate();
   }
 
@@ -30,8 +31,8 @@ public class Box : MonoBehaviour
       Vector3 worldPosition = m_Target.transform.TransformPoint(targetVertices[i]);
       Vector3 viewportPosition = m_CaptureCamera.WorldToViewportPoint(worldPosition);
       targetVerticeScreenCoordinates[i] = new Vector2(
-        viewportPosition.x * Camera.main.pixelWidth,
-        viewportPosition.y * Camera.main.pixelHeight
+        viewportPosition.x * m_DrawCamera.pixelWidth,
+        viewportPosition.y * m_DrawCamera.pixelHeight
       );
     }
 
@@ -79,8 +80,8 @@ public class Box : MonoBehaviour
     float distXToRightSide = Mathf.Abs(rightVerticeScreenPoint.x - lowestVerticeScreenPoint.x);
     float distXToLeftSide = Mathf.Abs(leftVerticeScreenPoint.x - lowestVerticeScreenPoint.x);
     Vector2 floorAntherPointScreenPoint = distXToRightSide > distXToLeftSide ? rightVerticeScreenPoint : leftVerticeScreenPoint;
-    Vector3 floorAntherPoint = Camera.main.ScreenToWorldPoint(new Vector3(floorAntherPointScreenPoint.x, floorAntherPointScreenPoint.y, 10f));
-    Vector3 floorLowestPoint = Camera.main.ScreenToWorldPoint(new Vector3(lowestVerticeScreenPoint.x, lowestVerticeScreenPoint.y, 10f));
+    Vector3 floorAntherPoint = m_DrawCamera.ScreenToWorldPoint(new Vector3(floorAntherPointScreenPoint.x, floorAntherPointScreenPoint.y, 10f));
+    Vector3 floorLowestPoint = m_DrawCamera.ScreenToWorldPoint(new Vector3(lowestVerticeScreenPoint.x, lowestVerticeScreenPoint.y, 10f));
     Vector3 floorPoint = (floorAntherPoint + floorLowestPoint) / 2f;
 
     m_Floor.transform.position = floorPoint;
@@ -117,7 +118,7 @@ public class Box : MonoBehaviour
   {
     foreach (Vector3 p in debugScreenPositions)
     {
-      Gizmos.DrawSphere(Camera.main.ScreenToWorldPoint(new Vector3(p.x, p.y, 10f)), .05f);
+      Gizmos.DrawSphere(m_DrawCamera.ScreenToWorldPoint(new Vector3(p.x, p.y, 10f)), .05f);
     }
 
   }

@@ -8,6 +8,7 @@ public class BoxManager : MonoBehaviour
   [SerializeField] ScreenManager m_Screen;
   [SerializeField] GameObject m_BoxPrefab;
   [SerializeField] Camera m_CaptureCamera;
+  [SerializeField] Camera m_DrawCamera;
   private List<Box> m_Boxes = new List<Box>();
 
   void Update()
@@ -22,7 +23,7 @@ public class BoxManager : MonoBehaviour
       GameObject go = Instantiate(m_BoxPrefab, transform);
       Box box = go.GetComponent<Box>();
       m_Boxes.Add(box);
-      box.Init(m_Screen.Get(m_Boxes.Count - 1).body, m_CaptureCamera);
+      box.Init(m_Screen.Get(m_Boxes.Count - 1).body, m_CaptureCamera, m_DrawCamera);
     }
   }
 

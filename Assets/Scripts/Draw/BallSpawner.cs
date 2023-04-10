@@ -6,6 +6,7 @@ public class BallSpawner : MonoBehaviour
 {
 
   [SerializeField] GameObject m_Prefab;
+  [SerializeField] float m_Interval = 1f;
 
   void Start()
   {
@@ -16,6 +17,6 @@ public class BallSpawner : MonoBehaviour
   {
     GameObject go = Instantiate(m_Prefab, transform);
     go.transform.localPosition = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0);
-    Invoke("Create", 1f);
+    Invoke("Create", m_Interval);
   }
 }
