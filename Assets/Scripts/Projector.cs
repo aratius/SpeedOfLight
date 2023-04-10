@@ -28,6 +28,8 @@ namespace Unity.Custom
     private Material _material;
     [SerializeField]
     private Texture _videoTexture;
+    [SerializeField]
+    private Camera _captureCamera;
     private SlitScan _slitScan;
     private float _slitScanEnable = 1;
 
@@ -114,7 +116,11 @@ namespace Unity.Custom
       if (type == "rx") r.x = value;
       if (type == "ry") r.y = value;
       if (type == "rz") r.z = value;
-      if (type == "fov") _fieldOfView = value;
+      if (type == "fov") 
+      {
+        _fieldOfView = value;
+        if(_captureCamera != null) _captureCamera.fieldOfView = value;
+      }
 
       transform.localPosition = p;
       transform.localEulerAngles = r;
