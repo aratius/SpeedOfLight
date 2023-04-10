@@ -49,6 +49,11 @@ namespace Unity.Custom
     List<ScreenData> m_ScreenDataList = new List<ScreenData>();
     Screen m_SelectedScreen;
 
+    public Screen Get(int index)
+    {
+      return m_ScreenList[index];
+    }
+
     void Start()
     {
       OscReceiver.Instance.AddCallback("", CheckData);
@@ -61,8 +66,8 @@ namespace Unity.Custom
         Screen screen = m_ScreenList[i];
         ScreenData screenData = m_ScreenDataList[i];
         screen.UpdateInfo(
-          new Vector3(screenData.w, screenData.h, screenData.d), 
-          new Vector3(screenData.tx, screenData.ty, screenData.tz) 
+          new Vector3(screenData.w, screenData.h, screenData.d),
+          new Vector3(screenData.tx, screenData.ty, screenData.tz)
         );
       }
 
@@ -71,25 +76,25 @@ namespace Unity.Custom
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); // Rayを生成
         List<GameObject> hitObjects = new List<GameObject>();
         bool isHit = false;
-        foreach(RaycastHit hit in Physics.RaycastAll(ray))
+        foreach (RaycastHit hit in Physics.RaycastAll(ray))
         {
           GameObject go = hit.collider.gameObject;
           if (go.tag == "ScreenBody") hitObjects.Add(go);
         }
-        if(hitObjects.Count > 0)
+        if (hitObjects.Count > 0)
         {
           GameObject closest = hitObjects[0];
           float distMin = Vector3.Distance(Camera.main.transform.position, closest.transform.position);
-          foreach(GameObject hitObject in hitObjects)
+          foreach (GameObject hitObject in hitObjects)
           {
             float dist = Vector3.Distance(Camera.main.transform.position, closest.transform.position);
-            if(dist < distMin)
+            if (dist < distMin)
             {
               distMin = dist;
               closest = hitObject;
             }
           }
-          if (m_SelectedScreen != null) 
+          if (m_SelectedScreen != null)
           {
             m_SelectedScreen.SetOutline(m_SelectedScreen.cameraEnabled ? OutlineType.Camera : OutlineType.Null);
           }
@@ -98,7 +103,7 @@ namespace Unity.Custom
         }
         else
         {
-          if (m_SelectedScreen != null) 
+          if (m_SelectedScreen != null)
           {
             m_SelectedScreen.SetOutline(m_SelectedScreen.cameraEnabled ? OutlineType.Camera : OutlineType.Null);
           }
@@ -107,16 +112,16 @@ namespace Unity.Custom
       }
 
       int applyDisplayIndex = -999;
-      if(Input.GetKeyDown(KeyCode.Alpha0)) applyDisplayIndex = 0;
-      else if(Input.GetKeyDown(KeyCode.Alpha1)) applyDisplayIndex = 1;
-      else if(Input.GetKeyDown(KeyCode.Alpha2)) applyDisplayIndex = 2;
-      else if(Input.GetKeyDown(KeyCode.Alpha3)) applyDisplayIndex = 3;
-      else if(Input.GetKeyDown(KeyCode.Alpha4)) applyDisplayIndex = 4;
-      else if(Input.GetKeyDown(KeyCode.Alpha5)) applyDisplayIndex = 5;
-      else if(Input.GetKeyDown(KeyCode.Alpha6)) applyDisplayIndex = 6;
-      else if(Input.GetKeyDown(KeyCode.Alpha7)) applyDisplayIndex = 7;
-      else if(Input.GetKeyDown(KeyCode.Alpha8)) applyDisplayIndex = 8;
-      if(applyDisplayIndex != -999 && m_SelectedScreen != null)
+      if (Input.GetKeyDown(KeyCode.Alpha0)) applyDisplayIndex = 0;
+      else if (Input.GetKeyDown(KeyCode.Alpha1)) applyDisplayIndex = 1;
+      else if (Input.GetKeyDown(KeyCode.Alpha2)) applyDisplayIndex = 2;
+      else if (Input.GetKeyDown(KeyCode.Alpha3)) applyDisplayIndex = 3;
+      else if (Input.GetKeyDown(KeyCode.Alpha4)) applyDisplayIndex = 4;
+      else if (Input.GetKeyDown(KeyCode.Alpha5)) applyDisplayIndex = 5;
+      else if (Input.GetKeyDown(KeyCode.Alpha6)) applyDisplayIndex = 6;
+      else if (Input.GetKeyDown(KeyCode.Alpha7)) applyDisplayIndex = 7;
+      else if (Input.GetKeyDown(KeyCode.Alpha8)) applyDisplayIndex = 8;
+      if (applyDisplayIndex != -999 && m_SelectedScreen != null)
       {
         m_SelectedScreen.SetCamera(applyDisplayIndex);
         m_SelectedScreen.SetOutline(OutlineType.Camera);
@@ -194,9 +199,9 @@ namespace Unity.Custom
           Screen screen = screenGO.GetComponent<Screen>();
           ScreenData screenData = m_ScreenDataList[i];
           screen.Init(
-            screenGO.name, 
-            new Vector3(screenData.w, screenData.h, screenData.d), 
-            m_TrackerManager.Get(i).gameObject, 
+            screenGO.name,
+            new Vector3(screenData.w, screenData.h, screenData.d),
+            m_TrackerManager.Get(i).gameObject,
             new Vector3(screenData.tx, screenData.ty, screenData.tz)
           );
           m_ScreenList.Add(screen);
