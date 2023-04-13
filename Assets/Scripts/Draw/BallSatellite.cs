@@ -11,7 +11,7 @@ public class BallSatellite : MonoBehaviour
     void Start()
     {
         float scale = Random.Range(.05f, .1f);
-        transform.DOScale(Vector3.one * scale, .8f).SetEase(Ease.OutElastic);
+        transform.DOScale(Vector3.one * scale, 1f).SetEase(Ease.OutElastic);
         m_Rigid = GetComponent<Rigidbody>();
         m_Rigid.useGravity = false;
         m_Rigid.mass = scale;
@@ -28,12 +28,18 @@ public class BallSatellite : MonoBehaviour
             m_Rigid.AddForce(direction * distance * .0001f, ForceMode.Impulse);
             m_Rigid.velocity = m_Rigid.velocity * .999f;
         }
-        
+
         float minSpeed = 1f;
+        float maxSpeed = 3f;
         if(m_Rigid.velocity.magnitude < minSpeed) 
         {
             m_Rigid.AddForce(Vector3.Normalize(m_Rigid.velocity) * .01f, ForceMode.Impulse);
         }
+        else if(m_Rigid.velocity.magnitude > maxSpeed)
+        {
+            m_Rigid.AddForce(-Vector3.Normalize(m_Rigid.velocity) * .01f, ForceMode.Impulse);
+        }
+
     }
 
     public void SetPlanets(List<BallPlanet> planets)
