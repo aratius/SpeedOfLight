@@ -10,6 +10,7 @@ public class Box : MonoBehaviour
   Vector3 m_LowestPoint;
   Vector3 m_SidePoint;
   Vector3 m_CenterPoint;
+  bool m_HasInit = false;
 
   public void Init(GameObject target, Camera captureCamera, Camera drawCamera)
   {
@@ -17,10 +18,17 @@ public class Box : MonoBehaviour
     m_CaptureCamera = captureCamera;
     m_DrawCamera = drawCamera;
     Calculate();
+    m_HasInit = true;
+  }
+
+  void Update()
+  {
+    if(m_HasInit && Time.frameCount % 60 == 0) Calculate();
   }
 
   void Calculate()
   {
+    Debug.Log($"Calculate {m_Target.transform.position}");
     // スクリーン座標に変換
     Vector3 targetScale = m_Target.transform.localScale;
     Vector3[] targetVertices = GetBoxVertices(1f, 1f, 1f);
@@ -89,8 +97,6 @@ public class Box : MonoBehaviour
     float rotZ = Mathf.Atan2(lowestVerticeScreenPoint.y - floorAntherPointScreenPoint.y, lowestVerticeScreenPoint.x - floorAntherPointScreenPoint.x);
     Vector3 floorEulerAngles = m_Floor.transform.eulerAngles;
     m_Floor.transform.eulerAngles = new Vector3(floorEulerAngles.x, floorEulerAngles.y, rotZ * 180f / Mathf.PI);
-
-    Invoke("Calculate", 1f);
   }
 
   Vector3[] GetBoxVertices(float sizeX, float sizeY, float sizeZ)
