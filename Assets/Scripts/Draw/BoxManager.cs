@@ -11,6 +11,8 @@ public class BoxManager : MonoBehaviour
   [SerializeField] Camera m_DrawCamera;
   private List<Box> m_Boxes = new List<Box>();
 
+  public List<Box> boxes => m_Boxes;
+
   void Update()
   {
     if (m_Screen.length > m_Boxes.Count) FillBoxes();

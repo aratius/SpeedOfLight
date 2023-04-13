@@ -12,6 +12,8 @@ public class Box : MonoBehaviour
   Vector3 m_CenterPoint;
   bool m_HasInit = false;
 
+  public Vector3 center => m_CenterPoint;
+
   public void Init(GameObject target, Camera captureCamera, Camera drawCamera)
   {
     m_Target = target;
@@ -19,6 +21,16 @@ public class Box : MonoBehaviour
     m_DrawCamera = drawCamera;
     Calculate();
     m_HasInit = true;
+  }
+
+  public void EnableFloor()
+  {
+    m_Floor.GetComponent<BoxCollider>().enabled = true;
+  }
+
+  public void DisableFloor()
+  {
+    m_Floor.GetComponent<BoxCollider>().enabled = false;
   }
 
   void Update()
@@ -64,7 +76,8 @@ public class Box : MonoBehaviour
       sum += coord;
     }
     // 中心点を保存しておく
-    m_CenterPoint = sum / targetVerticeScreenCoordinates.Length;
+    Vector2 centerScreen = sum / targetVerticeScreenCoordinates.Length;
+    m_CenterPoint = m_DrawCamera.ScreenToWorldPoint(new Vector3(centerScreen.x, centerScreen.y, 10f));
 
     // 次に左右の端
     for (int i = 0; i < targetVerticeScreenCoordinates.Length; i++)
