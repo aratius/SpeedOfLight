@@ -29,76 +29,79 @@ public class BallManager : MonoBehaviour
 
   void CreateLoop()
   {
-    if(m_Mode == AnimationMode.Earth) Create();
+    if (m_Mode == AnimationMode.Earth) Create();
     Invoke("CreateLoop", .2f);
   }
 
   void Create()
   {
-    Debug.Log("Create");
     GameObject go = Instantiate(m_Prefab, transform);
     go.transform.localPosition = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0);
     go.transform.localScale = Vector3.one * Random.Range(.1f, .4f);
     m_Balls.Add(go);
-    go.AddComponent<Ball>();
+    Ball ballScript = go.AddComponent<Ball>();
+    ballScript.OnCollideDestroyer.AddListener(OnCollideDestroyer);
   }
 
   void FixedUpdate()
-  {   
-    if(Input.GetKeyDown(KeyCode.U)) Universe();
-    else if(Input.GetKeyDown(KeyCode.E)) Earth();
+  {
+    if (Input.GetKeyDown(KeyCode.U)) Universe();
+    else if (Input.GetKeyDown(KeyCode.E)) Earth();
   }
 
   void Earth()
   {
-    if(m_Mode == AnimationMode.Earth) return;
+    if (m_Mode == AnimationMode.Earth) return;
     m_Mode = AnimationMode.Earth;
-    foreach(Box box in m_Boxes.boxes)
+    foreach (Box box in m_Boxes.boxes)
     {
       box.EnableFloor();
     }
-    foreach(BallPlanet ball in m_Planets)
+    foreach (BallPlanet ball in m_Planets)
     {
       Destroy(ball.GetComponent<BallPlanet>());
     }
     m_Planets.Clear();
-    foreach(BallSatellite ball in m_Satellites)
+    foreach (BallSatellite ball in m_Satellites)
     {
       Destroy(ball.GetComponent<BallSatellite>());
     }
     m_Satellites.Clear();
-    foreach(GameObject ball in m_Balls)
+    foreach (GameObject ball in m_Balls)
     {
-      ball.AddComponent<Ball>();
+      Ball ballScript = ball.AddComponent<Ball>();
+      ballScript.OnCollideDestroyer.AddListener(OnCollideDestroyer);
     }
   }
 
   void Universe()
   {
-    if(m_Mode == AnimationMode.Universe) return;
+    if (m_Mode == AnimationMode.Universe) return;
     m_Mode = AnimationMode.Universe;
-    foreach(GameObject ball in m_Balls)
+    foreach (GameObject ball in m_Balls)
     {
-      Destroy(ball.GetComponent<Ball>());
+      Ball ballScript = ball.GetComponent<Ball>();
+      ballScript.OnCollideDestroyer.RemoveListener(OnCollideDestroyer);
+      Destroy(ballScript);
     }
-    foreach(Box box in m_Boxes.boxes)
+    foreach (Box box in m_Boxes.boxes)
     {
       box.DisableFloor();
       Vector3 boxCenter = box.center;
-      while(m_Balls.Count < 5) Create();
+      while (m_Balls.Count < 5) Create();
       GameObject? nearestBall = null;
-      float nearestDist = 9999f; 
-      foreach(GameObject ball in m_Balls)
+      float nearestDist = 9999f;
+      foreach (GameObject ball in m_Balls)
       {
-        if(ball.GetComponent<BallPlanet>() != null) continue;
+        if (ball.GetComponent<BallPlanet>() != null) continue;
         float dist = Vector3.Distance(ball.transform.position, boxCenter);
-        if(dist < nearestDist)
+        if (dist < nearestDist)
         {
           nearestBall = ball;
           nearestDist = dist;
         }
       }
-      if(nearestBall != null) 
+      if (nearestBall != null)
       {
         BallPlanet planet = nearestBall.AddComponent<BallPlanet>();
         planet.SetTarget(box);
@@ -106,15 +109,21 @@ public class BallManager : MonoBehaviour
       }
     }
 
-    foreach(GameObject ball in m_Balls)
+    foreach (GameObject ball in m_Balls)
     {
-      if(ball.GetComponent<BallPlanet>() == null) 
+      if (ball.GetComponent<BallPlanet>() == null)
       {
         BallSatellite satellite = ball.AddComponent<BallSatellite>();
         satellite.SetPlanets(m_Planets);
       }
     }
-    
+
   }
-  
+
+  void OnCollideDestroyer(GameObject ball)
+  {
+    m_Balls.Remove(ball);
+    Destroy(ball);
+  }
+
 }

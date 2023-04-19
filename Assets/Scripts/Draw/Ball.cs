@@ -1,16 +1,27 @@
 using UnityEngine;
+using UnityEngine.Events;
 using DG.Tweening;
 
 public class Ball : MonoBehaviour
 {
 
-    Rigidbody m_Rigid;
+  UnityEvent<GameObject> m_OnCollideDestroyer = new UnityEvent<GameObject>();
+  Rigidbody m_Rigid;
 
-    void Start()
-    {
-        m_Rigid = GetComponent<Rigidbody>();
-        m_Rigid.useGravity = true;
-        m_Rigid.mass = transform.localScale.x * 3f;
-    }
-    
+  public UnityEvent<GameObject> OnCollideDestroyer => m_OnCollideDestroyer;
+
+  void Start()
+  {
+    m_Rigid = GetComponent<Rigidbody>();
+    m_Rigid.useGravity = true;
+    m_Rigid.mass = transform.localScale.x * 3f;
+  }
+
+
+  void OnCollisionEnter(Collision collisionInfo)
+  {
+    if (collisionInfo.gameObject.tag == "Destroyer") m_OnCollideDestroyer.Invoke(gameObject);
+  }
+
+
 }

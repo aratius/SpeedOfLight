@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Screen
   - ScreenBody
+  - Destroyer
   layers:
   - Default
   - TransparentFX
