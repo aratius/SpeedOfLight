@@ -83,7 +83,7 @@ Shader "Custom/Screen"
                     offset *= _Enable;
                     float3 p1 = GetHistory(uv, offset + 0);
                     float3 p2 = GetHistory(uv, offset + 1);
-                    float3 c = lerp(p1, p2, frac(delay));
+                    float3 c = lerp(p1, p2, frac(delay) * _Enable);
                     float h = j / 8.0 * 6 - 2;
                     c *= saturate(float3(abs(h - 1) - 1, 2 - abs(h), 2 - abs(h - 2)));
                     color += c / 4;

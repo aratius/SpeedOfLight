@@ -35,7 +35,7 @@ public class Box : MonoBehaviour
 
   void Update()
   {
-    if(m_HasInit && Time.frameCount % 60 == 0) Calculate();
+    if(m_HasInit && Time.frameCount % 30 == 0) Calculate();
   }
 
   void Calculate()
