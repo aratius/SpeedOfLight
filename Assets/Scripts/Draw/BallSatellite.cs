@@ -11,7 +11,7 @@ public class BallSatellite : MonoBehaviour
     void Start()
     {
         float scale = Random.Range(.05f, .1f);
-        transform.DOScale(Vector3.one * scale, 1f).SetEase(Ease.OutElastic);
+        transform.DOScale(Vector3.one * scale, 1.5f).SetEase(Ease.OutElastic);
         m_Rigid = GetComponent<Rigidbody>();
         m_Rigid.useGravity = false;
         m_Rigid.mass = scale;
@@ -45,6 +45,16 @@ public class BallSatellite : MonoBehaviour
     public void SetPlanets(List<BallPlanet> planets)
     {
         m_Planets = planets;
+    }
+
+    void OnCollisionEnter(Collision collisionInfo)
+    {
+        if(m_Rigid.velocity.magnitude > 1f) 
+        {
+            Vector3 collisionDirection = Vector3.Normalize(m_Rigid.velocity);
+            Vector3 collistionPoint = transform.position + Vector3.Scale(collisionDirection, transform.localScale) * .5f;
+            EffectController.Instance.Occour(ParticleKey.Collision, collistionPoint);
+        }
     }
     
 }
