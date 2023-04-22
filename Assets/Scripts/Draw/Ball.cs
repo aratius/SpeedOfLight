@@ -21,6 +21,12 @@ public class Ball : MonoBehaviour
   void OnCollisionEnter(Collision collisionInfo)
   {
     if (collisionInfo.gameObject.tag == "Destroyer") m_OnCollideDestroyer.Invoke(gameObject);
+    else if(collisionInfo.gameObject.tag == "FrameFloor") 
+    {
+      Vector3 collisionDirection = Vector3.Normalize(collisionInfo.gameObject.transform.position - transform.position);
+      Vector3 collistionPoint = transform.position + Vector3.Scale(collisionDirection, transform.localScale) * .5f;
+      EffectController.Instance.Occour(ParticleKey.Collision, collistionPoint);
+    }
   }
 
 
