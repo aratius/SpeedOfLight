@@ -79,11 +79,11 @@ Shader "Custom/Screen"
                 float3 color = float3(0, 0, 0);
                 for(uint j = 0; j < 8; j++) {
                     float delay = dNormalized * (RESOLUTION - 2);
-                    uint offset = (uint)delay + j * 1;
+                    float offset = delay + (float)j * 1;
                     offset *= _Enable;
-                    float3 p1 = GetHistory(uv, offset + 0);
-                    float3 p2 = GetHistory(uv, offset + 1);
-                    float3 c = lerp(p1, p2, frac(delay) * _Enable);
+                    float3 p1 = GetHistory(uv, (uint)offset + 0);
+                    float3 p2 = GetHistory(uv, (uint)offset + 1);
+                    float3 c = lerp(p1, p2, frac(offset));
                     float h = j / 8.0 * 6 - 2;
                     c *= saturate(float3(abs(h - 1) - 1, 2 - abs(h), 2 - abs(h - 2)));
                     color += c / 4;
