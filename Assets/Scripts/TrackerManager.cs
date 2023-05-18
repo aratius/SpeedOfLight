@@ -46,11 +46,12 @@ namespace Unity.Custom
     [SerializeField] GameObject m_TrackerPrefab;
     List<Tracker> m_TrackerList = new List<Tracker>();
     List<TrackerData> m_TrackerDataList = new List<TrackerData>();
-    GameObject m_SelectedTracker;
     UnityEvent<string?> m_OnChangeSelectedTracker = new UnityEvent<string?>();
 
-    public GameObject current => m_SelectedTracker;
-    public UnityEvent<string?> onChangeSelectedTracker => m_OnChangeSelectedTracker;
+    public Tracker Get(int index)
+    {
+      return m_TrackerList[index];
+    }
 
     void Start()
     {
@@ -64,36 +65,7 @@ namespace Unity.Custom
         Tracker tracker = m_TrackerList[i];
         TrackerData trackerData = m_TrackerDataList[i];
         tracker.transform.localPosition = new Vector3(trackerData.tx, trackerData.ty, trackerData.tz);
-        // tracker.transform.localEulerAngles = new Vector3(trackerData.rx, trackerData.ry, trackerData.rz);  // TODO: ちゃんと原因調べる TDでQuaternionに変換して送る
         tracker.SetRotation(new Vector3(trackerData.rx, trackerData.ry, trackerData.rz));
-      }
-
-      if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) // 左クリック
-      {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); // Rayを生成
-        RaycastHit hit;
-        bool isBlurred = false;
-        if (Physics.Raycast(ray, out hit)) // Rayを投射
-        {
-          GameObject go = hit.collider.gameObject;
-          Outline outline = go.GetComponent<Outline>();
-          if (outline != null)
-          {
-            if (m_SelectedTracker) m_SelectedTracker.GetComponent<Outline>().OutlineWidth = 0;
-            outline.OutlineWidth = 10;
-            m_SelectedTracker = go;
-            m_OnChangeSelectedTracker.Invoke(go.name);
-          }
-          else isBlurred = true;
-        }
-        else isBlurred = true;
-
-        if (isBlurred)
-        {
-          if (m_SelectedTracker) m_SelectedTracker.GetComponent<Outline>().OutlineWidth = 0;
-          m_SelectedTracker = null;
-          m_OnChangeSelectedTracker.Invoke(null);
-        }
       }
 
     }

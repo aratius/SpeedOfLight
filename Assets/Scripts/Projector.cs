@@ -28,15 +28,17 @@ namespace Unity.Custom
     private Material _material;
     [SerializeField]
     private Texture _videoTexture;
+    [SerializeField]
+    private Camera _captureCamera;
     private SlitScan _slitScan;
-    private float _slitScanEnable = 1;
 
     void Start()
     {
       Shader.SetGlobalFloat("_DMin", _distMin);
       Shader.SetGlobalFloat("_DMax", _distMax);
-      Shader.SetGlobalFloat("_Enable", _slitScanEnable);
+      Shader.SetGlobalFloat("_Enable", 1f);
       _slitScan = new SlitScan(_material);
+      Application.targetFrameRate = 30;
 
       OscReceiver.Instance.AddCallback("/projector:tx", (string address, OscDataHandle data) => ApplyInfo("tx", data.GetElementAsFloat(0)));
       OscReceiver.Instance.AddCallback("/projector:ty", (string address, OscDataHandle data) => ApplyInfo("ty", data.GetElementAsFloat(0)));
@@ -45,6 +47,7 @@ namespace Unity.Custom
       OscReceiver.Instance.AddCallback("/projector:ry", (string address, OscDataHandle data) => ApplyInfo("ry", data.GetElementAsFloat(0)));
       OscReceiver.Instance.AddCallback("/projector:rz", (string address, OscDataHandle data) => ApplyInfo("rz", data.GetElementAsFloat(0)));
       OscReceiver.Instance.AddCallback("/projector:fov", (string address, OscDataHandle data) => ApplyInfo("fov", data.GetElementAsFloat(0)));
+      OscReceiver.Instance.AddCallback("/slitscan:range", (string address, OscDataHandle data) => ApplyInfo("srange", data.GetElementAsFloat(0)));
     }
 
     // とりあえず今回はLateUpdateで更新
@@ -96,12 +99,6 @@ namespace Unity.Custom
       Gizmos.matrix = gizmosMatrix;
     }
 
-    public void ToggleSlitScan()
-    {
-      _slitScanEnable++;
-      Shader.SetGlobalFloat("_Enable", _slitScanEnable % 2);
-    }
-
     async void ApplyInfo(string type, float value)
     {
       await UniTask.WaitForFixedUpdate();
@@ -113,7 +110,15 @@ namespace Unity.Custom
       if (type == "rx") r.x = value;
       if (type == "ry") r.y = value;
       if (type == "rz") r.z = value;
-      if (type == "fov") _fieldOfView = value;
+      if (type == "fov") 
+      {
+        _fieldOfView = value;
+        if(_captureCamera != null) _captureCamera.fieldOfView = value;
+      }
+      if(type == "srange")
+      {
+        Shader.SetGlobalFloat("_Enable", value);
+      }
 
       transform.localPosition = p;
       transform.localEulerAngles = r;

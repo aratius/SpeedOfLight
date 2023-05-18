@@ -21,7 +21,7 @@ Shader "Custom/Outline Mask" {
       Name "Mask"
       Cull Off
       ZTest [_ZTest]
-      ZWrite Off
+      ZWrite On
       ColorMask 0
 
       Stencil {
