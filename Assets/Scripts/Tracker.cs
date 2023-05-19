@@ -11,7 +11,7 @@ public class Tracker : MonoBehaviour
   void Update()
   {
     Quaternion crr = transform.localRotation;
-    transform.localRotation = Quaternion.Slerp(crr, m_Target, .1f);
+    transform.localRotation = m_Target;
   }
 
   public void SetRotation(Vector3 eulerAngles)

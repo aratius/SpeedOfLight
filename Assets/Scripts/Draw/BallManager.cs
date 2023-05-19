@@ -16,6 +16,7 @@ public class BallManager : MonoBehaviour
 
   [SerializeField] GameObject m_Prefab;
   [SerializeField] BoxManager m_Boxes;
+  [SerializeField] GameObject m_Destroyer;
 
   List<GameObject> m_Balls = new List<GameObject>();
   List<BallPlanet> m_Planets = new List<BallPlanet>();
@@ -72,6 +73,7 @@ public class BallManager : MonoBehaviour
       Ball ballScript = ball.AddComponent<Ball>();
       ballScript.OnCollideDestroyer.AddListener(OnCollideDestroyer);
     }
+    m_Destroyer.SetActive(true);
   }
 
   void Universe()
@@ -107,6 +109,7 @@ public class BallManager : MonoBehaviour
         planet.SetTarget(box);
         m_Planets.Add(planet);
       }
+      m_Destroyer.SetActive(false);
     }
 
     foreach (GameObject ball in m_Balls)
