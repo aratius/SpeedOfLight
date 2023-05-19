@@ -26,6 +26,15 @@ public class BallManager : MonoBehaviour
   void Start()
   {
     CreateLoop();
+
+    OscReceiver.Instance.AddCallback("/trigger", (string address, OscDataHandle data) =>
+    {
+      if (data.GetElementAsInt(0) != 0)
+      {
+        if (m_Mode == AnimationMode.Earth) Universe();
+        else Earth();
+      }
+    });
   }
 
   void CreateLoop()
