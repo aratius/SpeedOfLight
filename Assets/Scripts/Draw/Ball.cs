@@ -20,7 +20,16 @@ public class Ball : MonoBehaviour
 
   void OnCollisionEnter(Collision collisionInfo)
   {
-    if (collisionInfo.gameObject.tag == "Destroyer") m_OnCollideDestroyer.Invoke(gameObject);
+    if (collisionInfo.gameObject.tag == "Destroyer")
+    {
+      m_OnCollideDestroyer.Invoke(gameObject);
+    }
+    else if (collisionInfo.gameObject.tag == "Ball")
+    {
+      int size = (int)Mathf.Clamp(transform.localScale.x * 10f, 0f, 10f);
+      int vel = (int)Mathf.Clamp(m_Rigid.velocity.magnitude * 3f, 0f, 10f);
+      OscSender.Instance.Send("/sound", 0, size, vel);
+    }
   }
 
 
