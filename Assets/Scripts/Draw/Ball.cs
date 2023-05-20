@@ -25,7 +25,7 @@ public class Ball : MonoBehaviour
     {
       m_OnCollideDestroyer.Invoke(gameObject);
     }
-    else if (collisionInfo.gameObject.tag == "Ball")
+    else if (collisionInfo.gameObject.tag == "Ball" && m_Rigid.velocity.magnitude > 1f)
     {
       // OSCトリガー
       int size = (int)Mathf.Clamp(transform.localScale.x * 10f, 0f, 10f);

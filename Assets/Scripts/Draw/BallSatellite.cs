@@ -11,7 +11,7 @@ public class BallSatellite : MonoBehaviour
 
   void Start()
   {
-    float scale = Random.Range(.05f, .1f);
+    float scale = Random.Range(.1f, .25f);
     transform.DOScale(Vector3.one * scale, 1f).SetEase(Ease.OutElastic);
     m_Rigid = GetComponent<Rigidbody>();
     m_Rigid.useGravity = false;
