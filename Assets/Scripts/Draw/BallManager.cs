@@ -50,7 +50,7 @@ public class BallManager : MonoBehaviour
   void Create()
   {
     GameObject go = Instantiate(m_Prefab, transform);
-    go.transform.localPosition = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0);
+    go.transform.localPosition = new Vector3(Random.Range(-10f, 10f), Random.Range(-1f, 1f), 0);
     go.transform.localScale = Vector3.one * Random.Range(.2f, .4f);
     m_Balls.Add(go);
     Ball ballScript = go.AddComponent<Ball>();
