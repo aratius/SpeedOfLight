@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Tiutilities;
 
 public enum ParticleKey
 {
@@ -22,9 +23,9 @@ public class EffectController : SingletonMonoBehaviour<EffectController>
 
     public void Occour(ParticleKey key, Vector3 pos)
     {
-        foreach(Particle particle in m_Particles)
+        foreach (Particle particle in m_Particles)
         {
-            if(particle.key == key)
+            if (particle.key == key)
             {
                 GameObject go = Instantiate(particle.go, transform);
                 go.transform.position = pos;

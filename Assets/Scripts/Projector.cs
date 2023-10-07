@@ -110,12 +110,12 @@ namespace Unity.Custom
       if (type == "rx") r.x = value;
       if (type == "ry") r.y = value;
       if (type == "rz") r.z = value;
-      if (type == "fov") 
+      if (type == "fov")
       {
         _fieldOfView = value;
-        if(_captureCamera != null) _captureCamera.fieldOfView = value;
+        if (_captureCamera != null) _captureCamera.fieldOfView = value;
       }
-      if(type == "srange")
+      if (type == "srange")
       {
         Shader.SetGlobalFloat("_Enable", value);
       }
