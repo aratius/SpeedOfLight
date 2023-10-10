@@ -807,7 +807,7 @@ MonoBehaviour:
   _farClipPlane: 100
   _orthographic: 0
   _orthographicSize: 1
-  _distMin: 1
+  _distMin: 2.5
   _distMax: 5
   _material: {fileID: 2100000, guid: 15f063b2bbfc0459aa2962831b15233f, type: 2}
   _videoTexture: {fileID: 8400000, guid: 8049f05c2c4d44d609fec4c8f59d344c, type: 2}

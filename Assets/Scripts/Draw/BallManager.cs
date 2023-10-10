@@ -33,11 +33,8 @@ public class BallManager : MonoBehaviour
     OscReceiver.Instance.AddCallback("/trigger", async (string address, OscDataHandle data) =>
     {
       await UniTask.WaitForFixedUpdate();
-      if (data.GetElementAsInt(0) != 0)
-      {
-        if (m_Mode == AnimationMode.Earth) Universe();
-        else Earth();
-      }
+      if (data.GetElementAsInt(0) == 0) Earth();
+      else Universe();
     });
   }
 
