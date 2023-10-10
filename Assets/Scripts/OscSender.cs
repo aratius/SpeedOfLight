@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using OscJack;
 using Unity.Custom;
+using Tiutilities;
 
 namespace Unity.Custom
 {

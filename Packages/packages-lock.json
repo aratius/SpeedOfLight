@@ -89,6 +89,13 @@
         "com.unity.modules.imgui": "1.0.0"
       }
     },
+    "jp.aualrxse.utilities": {
+      "version": "https://github.com/aratius/Tiutilities.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "f951b2982a11102a402e1ccbeed82e617a9bbb77"
+    },
     "jp.keijiro.klak.ndi": {
       "version": "2.0.3",
       "depth": 0,
