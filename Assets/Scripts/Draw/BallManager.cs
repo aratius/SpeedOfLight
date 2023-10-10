@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
+using Unity.Custom;
+using OscJack;
 
 public enum AnimationMode
 {
@@ -26,6 +29,16 @@ public class BallManager : MonoBehaviour
   void Start()
   {
     CreateLoop();
+
+    OscReceiver.Instance.AddCallback("/trigger", async (string address, OscDataHandle data) =>
+    {
+      await UniTask.WaitForFixedUpdate();
+      if (data.GetElementAsInt(0) != 0)
+      {
+        if (m_Mode == AnimationMode.Earth) Universe();
+        else Earth();
+      }
+    });
   }
 
   void CreateLoop()
@@ -37,8 +50,8 @@ public class BallManager : MonoBehaviour
   void Create()
   {
     GameObject go = Instantiate(m_Prefab, transform);
-    go.transform.localPosition = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0);
-    go.transform.localScale = Vector3.one * Random.Range(.1f, .4f);
+    go.transform.localPosition = new Vector3(Random.Range(-10f, 10f), Random.Range(-1f, 1f), 0);
+    go.transform.localScale = Vector3.one * Random.Range(.2f, .4f);
     m_Balls.Add(go);
     Ball ballScript = go.AddComponent<Ball>();
     ballScript.OnCollideDestroyer.AddListener(OnCollideDestroyer);

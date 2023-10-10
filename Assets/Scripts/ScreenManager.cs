@@ -8,6 +8,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using OscJack;
 using TMPro;
+using Tiutilities;
 
 namespace Unity.Custom
 {
@@ -40,6 +41,12 @@ namespace Unity.Custom
 
   }
 
+  [Serializable]
+  public class Usage
+  {
+    public string data = "";
+  }
+
   public class ScreenManager : MonoBehaviour
   {
 
@@ -50,6 +57,8 @@ namespace Unity.Custom
     Screen m_SelectedScreen;
 
     public int length => m_ScreenList.Count;
+    Dictionary<string, int> m_ScreenUsage = new Dictionary<string, int>();
+    Usage m_Usage = new Usage();
 
     public Screen Get(int index)
     {
@@ -59,6 +68,14 @@ namespace Unity.Custom
     void Start()
     {
       OscReceiver.Instance.AddCallback("", CheckData);
+      MyJsonReader<Usage> jsonReader = MyJsonReader<Usage>.GetInstance("displayInfo.json");
+      Usage usage = jsonReader.data;
+      string[] arr = usage.data.Split(',');
+      foreach (string item in arr)
+      {
+        if (item == "") continue;
+        m_ScreenUsage.Add($"Screen_{item.Split(':')[0]}", int.Parse(item.Split(':')[1]));
+      }
     }
 
     void Update()
@@ -127,6 +144,25 @@ namespace Unity.Custom
       {
         m_SelectedScreen.SetCamera(applyDisplayIndex);
         m_SelectedScreen.SetOutline(OutlineType.Camera);
+
+        if (!m_ScreenUsage.ContainsKey(m_SelectedScreen.gameObject.name))
+        {
+          m_ScreenUsage.Add(m_SelectedScreen.gameObject.name, applyDisplayIndex);
+        }
+        else
+        {
+          if (applyDisplayIndex == 0) m_ScreenUsage.Remove(m_SelectedScreen.gameObject.name);
+          else m_ScreenUsage[m_SelectedScreen.gameObject.name] = applyDisplayIndex;
+        }
+
+        m_Usage.data = "";
+        foreach (var p in m_ScreenUsage)
+        {
+          string key = Regex.Replace(p.Key, @"Screen_([0-9])", "$1");
+          m_Usage.data += $"{key}:{p.Value},";
+        }
+
+        MyJsonWriter.Write("displayInfo.json", JsonUtility.ToJson(m_Usage));
       }
 
     }
@@ -207,6 +243,12 @@ namespace Unity.Custom
             new Vector3(screenData.tx, screenData.ty, screenData.tz)
           );
           m_ScreenList.Add(screen);
+
+          if (m_ScreenUsage.ContainsKey($"Screen_{i}"))
+          {
+            screen.SetCamera(m_ScreenUsage[$"Screen_{i}"]);
+            screen.SetOutline(OutlineType.Camera);
+          }
         }
       }
     }

@@ -9,7 +9,7 @@ public class BallPlanet : MonoBehaviour
 
   void Start()
   {
-    float scale = Random.Range(.4f, .6f);
+    float scale = Random.Range(.5f, .7f);
     transform.DOScale(Vector3.one * scale, 1.5f).SetEase(Ease.OutElastic);
     m_Rigid = GetComponent<Rigidbody>();
     m_Rigid.useGravity = false;

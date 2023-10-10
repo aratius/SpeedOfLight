@@ -27,11 +27,6 @@ namespace Unity.Custom
       get => m_Camera.enabled;
     }
 
-    void Start()
-    {
-      m_Outline = GetComponent<Outline>();
-    }
-
     public string key => m_Key;
 
     public void Init(string key, Vector3 size, GameObject tracker, Vector3 offset)
@@ -40,6 +35,7 @@ namespace Unity.Custom
       m_Tracker = tracker;
       UpdateInfo(size, offset);
       ApplyTransform();
+      m_Outline = GetComponent<Outline>();
     }
 
     public void UpdateInfo(Vector3 size, Vector3 offset)
@@ -66,6 +62,7 @@ namespace Unity.Custom
 
     public void SetOutline(OutlineType type)
     {
+      Debug.Log("hoge1");
       if (type == OutlineType.Focus)
       {
         m_Outline.OutlineWidth = 30;
@@ -77,6 +74,8 @@ namespace Unity.Custom
       }
       else if (type == OutlineType.Camera)
       {
+        Debug.Log("hoge");
+        Debug.Log(m_Camera.targetDisplay);
         m_Outline.OutlineWidth = 30;
         m_Outline.OutlineColor = Color.HSVToRGB((float)m_Camera.targetDisplay / 8f, 1f, 1f);
       }
