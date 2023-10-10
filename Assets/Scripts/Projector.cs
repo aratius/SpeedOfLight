@@ -48,6 +48,8 @@ namespace Unity.Custom
       OscReceiver.Instance.AddCallback("/projector:rz", (string address, OscDataHandle data) => ApplyInfo("rz", data.GetElementAsFloat(0)));
       OscReceiver.Instance.AddCallback("/projector:fov", (string address, OscDataHandle data) => ApplyInfo("fov", data.GetElementAsFloat(0)));
       OscReceiver.Instance.AddCallback("/slitscan:range", (string address, OscDataHandle data) => ApplyInfo("srange", data.GetElementAsFloat(0)));
+      OscReceiver.Instance.AddCallback("/slitscan:dmin", (string address, OscDataHandle data) => ApplyInfo("dmin", data.GetElementAsFloat(0)));
+      OscReceiver.Instance.AddCallback("/slitscan:dmax", (string address, OscDataHandle data) => ApplyInfo("dmax", data.GetElementAsFloat(0)));
     }
 
     // とりあえず今回はLateUpdateで更新
@@ -110,6 +112,14 @@ namespace Unity.Custom
       if (type == "rx") r.x = value;
       if (type == "ry") r.y = value;
       if (type == "rz") r.z = value;
+      if (type == "dmin"){
+        _distMin = value;
+        Shader.SetGlobalFloat("_DMin", _distMin);
+      }
+      if (type == "dmax") {
+        _distMax = value;
+        Shader.SetGlobalFloat("_DMax", _distMax);
+      }
       if (type == "fov") 
       {
         _fieldOfView = value;
