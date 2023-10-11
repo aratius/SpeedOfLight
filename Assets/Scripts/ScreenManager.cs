@@ -212,7 +212,7 @@ namespace Unity.Custom
 
         if (regTx.IsMatch(address)) screenData.tx = data.GetElementAsFloat(0);
         else if (regTy.IsMatch(address)) screenData.ty = data.GetElementAsFloat(0);
-        else if (regTz.IsMatch(address)) screenData.tz = -data.GetElementAsFloat(0);  // NOTE: OpenVRと座標系そのものが逆だと思う
+        else if (regTz.IsMatch(address)) screenData.tz = data.GetElementAsFloat(0);  // NOTE: OpenVRと座標系そのものが逆だと思う
         else if (regW.IsMatch(address)) screenData.w = data.GetElementAsFloat(0);
         else if (regH.IsMatch(address)) screenData.h = data.GetElementAsFloat(0);
         else if (regD.IsMatch(address)) screenData.d = data.GetElementAsFloat(0);

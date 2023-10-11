@@ -115,9 +115,9 @@ namespace Unity.Custom
 
         if (regTx.IsMatch(address)) trackerData.tx = data.GetElementAsFloat(0);
         else if (regTy.IsMatch(address)) trackerData.ty = data.GetElementAsFloat(0);
-        else if (regTz.IsMatch(address)) trackerData.tz = -data.GetElementAsFloat(0);  // NOTE: OpenVRと座標系そのものが逆だと思う
-        else if (regRx.IsMatch(address)) trackerData.rx = -data.GetElementAsFloat(0);
-        else if (regRy.IsMatch(address)) trackerData.ry = -data.GetElementAsFloat(0);
+        else if (regTz.IsMatch(address)) trackerData.tz = data.GetElementAsFloat(0);  // NOTE: OpenVRと座標系そのものが逆だと思う
+        else if (regRx.IsMatch(address)) trackerData.rx = data.GetElementAsFloat(0);
+        else if (regRy.IsMatch(address)) trackerData.ry = data.GetElementAsFloat(0);
         else if (regRz.IsMatch(address)) trackerData.rz = data.GetElementAsFloat(0);
 
         m_TrackerDataList[index] = trackerData;

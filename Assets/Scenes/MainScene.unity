@@ -412,7 +412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_DontDestroyOnLoad: 1
-  m_Port: 8000
+  m_Port: 8002
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -942,7 +942,7 @@ MonoBehaviour:
   _distMax: 5
   _material: {fileID: 2100000, guid: 15f063b2bbfc0459aa2962831b15233f, type: 2}
   _videoTexture: {fileID: 8400000, guid: 8049f05c2c4d44d609fec4c8f59d344c, type: 2}
-  _captureCamera: {fileID: 0}
+  _captureCamera: {fileID: 254174281}
 --- !u!4 &1353593481
 Transform:
   m_ObjectHideFlags: 0
