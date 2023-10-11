@@ -29,7 +29,7 @@ namespace Unity.Custom
     [SerializeField]
     private Texture _videoTexture;
     [SerializeField]
-    private Camera _captureCamera;
+    private Camera[] _captureCameras;
     private SlitScan _slitScan;
 
     void Start()
@@ -123,7 +123,8 @@ namespace Unity.Custom
       if (type == "fov") 
       {
         _fieldOfView = value;
-        if (_captureCamera != null) _captureCamera.fieldOfView = value;
+        // if (_captureCamera != null) _captureCamera.fieldOfView = value;
+        foreach(Camera c in _captureCameras) c.fieldOfView = value;
       }
       if (type == "srange")
       {
