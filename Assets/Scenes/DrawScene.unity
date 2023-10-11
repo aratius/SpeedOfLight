@@ -272,6 +272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d2fd4d595c834185b5c49f769af6b50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_DontDestroyOnLoad: 1
   m_Ip: 127.0.0.1
   m_Port: 10000
 --- !u!4 &267490644
@@ -410,7 +411,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d78bfbf4ba64c4dbfb76d01b9c4449ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Port: 8000
+  m_DontDestroyOnLoad: 1
+  m_Port: 8001
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -807,7 +809,7 @@ MonoBehaviour:
   _farClipPlane: 100
   _orthographic: 0
   _orthographicSize: 1
-  _distMin: 1
+  _distMin: 2.5
   _distMax: 5
   _material: {fileID: 2100000, guid: 15f063b2bbfc0459aa2962831b15233f, type: 2}
   _videoTexture: {fileID: 8400000, guid: 8049f05c2c4d44d609fec4c8f59d344c, type: 2}
