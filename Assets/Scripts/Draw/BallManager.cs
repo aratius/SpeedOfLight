@@ -20,6 +20,8 @@ public class BallManager : MonoBehaviour
   [SerializeField] GameObject m_Prefab;
   [SerializeField] BoxManager m_Boxes;
   [SerializeField] GameObject m_Destroyer;
+  [SerializeField] float verticalMin = -1f;
+  [SerializeField] float verticalMax = 2f;
 
   List<GameObject> m_Balls = new List<GameObject>();
   List<BallPlanet> m_Planets = new List<BallPlanet>();
@@ -47,7 +49,7 @@ public class BallManager : MonoBehaviour
   void Create()
   {
     GameObject go = Instantiate(m_Prefab, transform);
-    go.transform.localPosition = new Vector3(Random.Range(-10f, 10f), Random.Range(-1f, 1f), 0);
+    go.transform.localPosition = new Vector3(Random.Range(-3f, 3f), Random.Range(verticalMin, verticalMax), 0);
     go.transform.localScale = Vector3.one * Random.Range(.2f, .4f);
     m_Balls.Add(go);
     Ball ballScript = go.AddComponent<Ball>();
