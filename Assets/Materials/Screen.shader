@@ -73,8 +73,6 @@ Shader "Custom/Screen"
 
                 // NOTE: エリア内で正規化したデプステクスチャ
                 float dNormalized = (1 - 0) / (_DMax - _DMin) * (i.distance.x - _DMin) + 0;
-                // return fixed4(fixed3(dNormalized, dNormalized, dNormalized), 1.);
-
 
                 float3 color = float3(0, 0, 0);
                 for(uint j = 0; j < 8; j++) {

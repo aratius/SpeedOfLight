@@ -47,7 +47,7 @@ Shader "PostEffect/DotEffect"
                 fixed2 fractUV = frac(i.uv * _ScreenParams.xy / blockSize);
                 fixed4 col = tex2D(_MainTex, mosaicUV);
                 float ballCol = length(fractUV - fixed2(0.5, 0.5));
-                return ballCol < 0.3 * col.r ? fixed4(1,1,1,1) : fixed4(0,0,0,0);
+                return ballCol < 0.3 * col.r ? col : fixed4(0,0,0,0);
             }
             ENDCG
         }

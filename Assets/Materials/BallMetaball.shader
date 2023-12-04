@@ -3,6 +3,7 @@ Shader "Unlit/BallMetaballModified"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+        _MainColor ("MainColor", Color) = (1.0, 1.0, 1.0, 1.0)
     }
     SubShader
     {
@@ -35,6 +36,7 @@ Shader "Unlit/BallMetaballModified"
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
+            float4 _MainColor;
 
             v2f vert (appdata v)
             {
@@ -54,7 +56,7 @@ Shader "Unlit/BallMetaballModified"
                 float ndotv = max(0, dot(viewDir, i.worldNormal));
                 // Interpolate between white and black based on the dot product
                 // fixed4 col = lerp(fixed4(1, 0, 0, 1), fixed4(0, 0, 1, 1), ndotv);
-                fixed4 col = fixed4(1,1,1,1);
+                fixed4 col = _MainColor;
                 col.a = ndotv;
                 return col;
             }

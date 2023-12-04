@@ -16,6 +16,16 @@ public class Ball : MonoBehaviour
     m_Rigid = GetComponent<Rigidbody>();
     m_Rigid.useGravity = true;
     m_Rigid.mass = transform.localScale.x * 3f;
+
+    MeshRenderer r = GetComponent<MeshRenderer>();
+    r.material = new Material(r.material.shader);
+    Color[] colors = {
+      new Color(249f / 255f, 61f / 255f, 64f / 255f, 1),
+      new Color(9f / 255f, 166f / 255f, 208f / 255f, 1),
+      new Color(2f / 255f, 31f / 255f, 161f / 255f, 1),
+      new Color(250f / 255f, 186f / 255f, 75f / 255f, 1)
+    };
+    r.material.SetColor("_MainColor", colors[(int)Mathf.Floor(Random.Range(0, colors.Length))]);
   }
 
 

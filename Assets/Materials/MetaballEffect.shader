@@ -53,11 +53,14 @@ Shader "PostEffect/MetaballEffect"
                 for (int j = 0; j < 9; j++)
                 {
                     float2 offset = offsets[j] * blurSize;
-                    sum += tex2D(_MainTex, i.uv + offset).r;
+                    fixed4 c = tex2D(_MainTex, i.uv + offset);
+                    sum += (c.r + c.g + c.b) / 3;
                 }
 
                 // 閾値に基づいて色を設定
-                col = sum > threshold ? fixed4(1, 1, 1, 1) : fixed4(0, 0, 0, 1);
+                // col = sum > threshold ? col : fixed4(0, 0, 0, 1);
+                // col = sum > threshold ? fixed4(1,1,1,1) : fixed4(0, 0, 0, 1);
+                col = sum > threshold ? fixed4(i.uv.x,i.uv.y,1,1) : fixed4(0, 0, 0, 1);
 
                 return col;
             }
