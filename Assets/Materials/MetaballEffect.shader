@@ -44,7 +44,7 @@ Shader "PostEffect/MetaballEffect"
                 fixed4 col = tex2D(_MainTex, i.uv);
                 
                 // メタボールの効果を計算
-                float threshold = 0.1; // 閾値を調整する
+                float threshold = 0.9; // 閾値を調整する
                 float2 offsets[9] = { float2(-1, -1), float2(0, -1), float2(1, -1), float2(-1, 0), float2(0, 0), float2(1, 0), float2(-1, 1), float2(0, 1), float2(1, 1) };
                 float blurSize = 0.005; // ブラーの大きさを調整する
                 float sum = 0.0;

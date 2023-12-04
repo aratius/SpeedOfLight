@@ -1895,9 +1895,13 @@ PrefabInstance:
       propertyPath: verticalMax
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 5067454087634537048, guid: c70d481071d63da43a95c3f54ba94f00, type: 3}
+      propertyPath: m_Particles.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5067454087634537050, guid: c70d481071d63da43a95c3f54ba94f00, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c70d481071d63da43a95c3f54ba94f00, type: 3}
