@@ -53,7 +53,7 @@ Shader "Unlit/BallMetaballModified"
                 // Calculate the dot product
                 float ndotv = max(0, dot(viewDir, i.worldNormal));
                 // Interpolate between white and black based on the dot product
-                // fixed4 col = lerp(fixed4(0, 0, 0, 1), fixed4(1, 1, 1, 1), ndotv);
+                // fixed4 col = lerp(fixed4(1, 0, 0, 1), fixed4(0, 0, 1, 1), ndotv);
                 fixed4 col = fixed4(1,1,1,1);
                 col.a = ndotv;
                 return col;

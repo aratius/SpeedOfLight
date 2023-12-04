@@ -4,9 +4,11 @@ using UnityEngine;
 public class PostEffect : MonoBehaviour
 {
     [SerializeField] private Material filter;
+    [SerializeField] private bool active = true;
 
     private void OnRenderImage(RenderTexture src, RenderTexture dest)
     {
-        Graphics.Blit(src,dest,filter);
+        if(active) Graphics.Blit(src,dest,filter);
+        else Graphics.Blit(src,dest);
     }
 }
