@@ -58,6 +58,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5067454086663128703}
   - component: {fileID: 5067454086663128688}
+  - component: {fileID: 1894812492803333103}
   - component: {fileID: 5067454086663128701}
   - component: {fileID: 5067454086663128700}
   m_Layer: 5
@@ -129,6 +130,19 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &1894812492803333103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5067454086663128690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b83de67eafdf624da0e35cb316ac214, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  filter: {fileID: 2100000, guid: 40b47c7f8d9f2884aa177bc9b3278db6, type: 2}
 --- !u!114 &5067454086663128701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,6 +267,8 @@ MonoBehaviour:
   m_Prefab: {fileID: 4565085751162966029, guid: a6944de863e5c4db493392a58bc5844c, type: 3}
   m_Boxes: {fileID: 5067454086058420544}
   m_Destroyer: {fileID: 5067454087679330040}
+  verticalMin: -1
+  verticalMax: 2
 --- !u!1 &5067454087634537050
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,6 +313,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f8f0119a6b21ca4c8e442ee2b1c8afe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_DontDestroyOnLoad: 1
   m_Particles:
   - key: 0
     go: {fileID: 1212502506160986383, guid: a2e35f936e76eb74591c94f937740829, type: 3}
