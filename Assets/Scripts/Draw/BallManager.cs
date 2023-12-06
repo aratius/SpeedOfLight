@@ -11,13 +11,21 @@ public enum AnimationMode
   Universe
 }
 
+[System.Serializable]
+public struct MaterialSet {
+  public Material sphere;
+  public Material box;
+}
+
 // TODO: 万有引力の実装
 // ランダムに惑星を初期化
 // TODO: 万有引力と重力ときりかえ
 public class BallManager : MonoBehaviour
 {
 
-  [SerializeField] GameObject[] m_Prefabs;
+  [SerializeField] GameObject m_BallSpherePrefab;
+  [SerializeField] GameObject m_BallBoxPrefab;
+  [SerializeField] MaterialSet[] m_MaterialSets;
   [SerializeField] BoxManager m_Boxes;
   [SerializeField] GameObject m_Destroyer;
   [SerializeField] float verticalMin = -1f;
@@ -48,10 +56,14 @@ public class BallManager : MonoBehaviour
 
   void Create()
   {
-    GameObject prefabPickedUp = m_Prefabs[(int)Mathf.Floor(Random.Range(0, m_Prefabs.Length))];
+    bool isBox = Random.Range(0, 1f) < 0.3f;
+    GameObject prefabPickedUp = isBox ? m_BallBoxPrefab : m_BallSpherePrefab;
     GameObject go = Instantiate(prefabPickedUp, transform);
     go.transform.localPosition = new Vector3(Random.Range(-3f, 3f), Random.Range(verticalMin, verticalMax), 0);
     go.transform.localScale = Vector3.one * Random.Range(.3f, .8f);
+    int index = (int)(Time.time / 30f) % m_MaterialSets.Length;
+    Debug.Log(index);
+    go.GetComponent<MeshRenderer>().material = isBox ? m_MaterialSets[index].box : m_MaterialSets[index].sphere;
     // go.transform.localScale = Vector3.one * Random.Range(.2f, .4f);
     m_Balls.Add(go);
     Ball ballScript = go.AddComponent<Ball>();

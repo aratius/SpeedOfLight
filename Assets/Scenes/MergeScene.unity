@@ -1904,6 +1904,14 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5067454087125417631, guid: c70d481071d63da43a95c3f54ba94f00, type: 3}
+      propertyPath: m_BallBoxPrefab
+      value: 
+      objectReference: {fileID: 1915495020301194500, guid: bf50c49600288fe47a0ae70deb8cf7dd, type: 3}
+    - target: {fileID: 5067454087125417631, guid: c70d481071d63da43a95c3f54ba94f00, type: 3}
+      propertyPath: m_BallSpherePrefab
+      value: 
+      objectReference: {fileID: 4565085751162966029, guid: a6944de863e5c4db493392a58bc5844c, type: 3}
+    - target: {fileID: 5067454087125417631, guid: c70d481071d63da43a95c3f54ba94f00, type: 3}
       propertyPath: m_Prefabs.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -1923,6 +1931,62 @@ PrefabInstance:
       propertyPath: m_Prefabs.Array.data[3]
       value: 
       objectReference: {fileID: 137879016410013039, guid: da5c0eb0e1e50fd41a1d6355ba74c347, type: 3}
+    - target: {fileID: 5067454087125417631, guid: c70d481071d63da43a95c3f54ba94f00, type: 3}
+      propertyPath: m_MaterialSet.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067454087125417631, guid: c70d481071d63da43a95c3f54ba94f00, type: 3}
+      propertyPath: m_MaterialSets.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067454087125417631, guid: c70d481071d63da43a95c3f54ba94f00, type: 3}
+      propertyPath: m_MaterialSet.Array.data[0].box
+      value: 
+      objectReference: {fileID: 2100000, guid: 49c3c02661a83fd42b33859cfbf9a17d, type: 2}
+    - target: {fileID: 5067454087125417631, guid: c70d481071d63da43a95c3f54ba94f00, type: 3}
+      propertyPath: m_MaterialSet.Array.data[1].box
+      value: 
+      objectReference: {fileID: 2100000, guid: 08bf348b6a9ce604b9748e978f4b055b, type: 2}
+    - target: {fileID: 5067454087125417631, guid: c70d481071d63da43a95c3f54ba94f00, type: 3}
+      propertyPath: m_MaterialSet.Array.data[2].box
+      value: 
+      objectReference: {fileID: 2100000, guid: 49c3c02661a83fd42b33859cfbf9a17d, type: 2}
+    - target: {fileID: 5067454087125417631, guid: c70d481071d63da43a95c3f54ba94f00, type: 3}
+      propertyPath: m_MaterialSets.Array.data[0].box
+      value: 
+      objectReference: {fileID: 2100000, guid: 08bf348b6a9ce604b9748e978f4b055b, type: 2}
+    - target: {fileID: 5067454087125417631, guid: c70d481071d63da43a95c3f54ba94f00, type: 3}
+      propertyPath: m_MaterialSets.Array.data[1].box
+      value: 
+      objectReference: {fileID: 2100000, guid: 49c3c02661a83fd42b33859cfbf9a17d, type: 2}
+    - target: {fileID: 5067454087125417631, guid: c70d481071d63da43a95c3f54ba94f00, type: 3}
+      propertyPath: m_MaterialSets.Array.data[2].box
+      value: 
+      objectReference: {fileID: 2100000, guid: 42e26e838cb21e944aa7de2aae4edefc, type: 2}
+    - target: {fileID: 5067454087125417631, guid: c70d481071d63da43a95c3f54ba94f00, type: 3}
+      propertyPath: m_MaterialSet.Array.data[0].sphere
+      value: 
+      objectReference: {fileID: 2100000, guid: f626655cbc4ec1c478d8273efb7b77d2, type: 2}
+    - target: {fileID: 5067454087125417631, guid: c70d481071d63da43a95c3f54ba94f00, type: 3}
+      propertyPath: m_MaterialSet.Array.data[1].sphere
+      value: 
+      objectReference: {fileID: 2100000, guid: 976b31720675c1a47be763ebf89dc566, type: 2}
+    - target: {fileID: 5067454087125417631, guid: c70d481071d63da43a95c3f54ba94f00, type: 3}
+      propertyPath: m_MaterialSet.Array.data[2].sphere
+      value: 
+      objectReference: {fileID: 2100000, guid: 42e26e838cb21e944aa7de2aae4edefc, type: 2}
+    - target: {fileID: 5067454087125417631, guid: c70d481071d63da43a95c3f54ba94f00, type: 3}
+      propertyPath: m_MaterialSets.Array.data[0].sphere
+      value: 
+      objectReference: {fileID: 2100000, guid: 976b31720675c1a47be763ebf89dc566, type: 2}
+    - target: {fileID: 5067454087125417631, guid: c70d481071d63da43a95c3f54ba94f00, type: 3}
+      propertyPath: m_MaterialSets.Array.data[1].sphere
+      value: 
+      objectReference: {fileID: 2100000, guid: f626655cbc4ec1c478d8273efb7b77d2, type: 2}
+    - target: {fileID: 5067454087125417631, guid: c70d481071d63da43a95c3f54ba94f00, type: 3}
+      propertyPath: m_MaterialSets.Array.data[2].sphere
+      value: 
+      objectReference: {fileID: 2100000, guid: 49c3c02661a83fd42b33859cfbf9a17d, type: 2}
     - target: {fileID: 5067454087634537048, guid: c70d481071d63da43a95c3f54ba94f00, type: 3}
       propertyPath: m_Particles.Array.size
       value: 1
