@@ -1925,8 +1925,12 @@ PrefabInstance:
       objectReference: {fileID: 137879016410013039, guid: da5c0eb0e1e50fd41a1d6355ba74c347, type: 3}
     - target: {fileID: 5067454087634537048, guid: c70d481071d63da43a95c3f54ba94f00, type: 3}
       propertyPath: m_Particles.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5067454087634537048, guid: c70d481071d63da43a95c3f54ba94f00, type: 3}
+      propertyPath: m_Particles.Array.data[0].go
+      value: 
+      objectReference: {fileID: 1212502506160986383, guid: a2e35f936e76eb74591c94f937740829, type: 3}
     - target: {fileID: 5067454087634537050, guid: c70d481071d63da43a95c3f54ba94f00, type: 3}
       propertyPath: m_IsActive
       value: 1
