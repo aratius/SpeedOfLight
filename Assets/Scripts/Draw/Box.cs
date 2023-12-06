@@ -40,7 +40,7 @@ public class Box : MonoBehaviour
 
   void Calculate()
   {
-    Debug.Log($"Calculate {m_Target.transform.position}");
+    // Debug.Log($"Calculate {m_Target.transform.position}");
     // スクリーン座標に変換
     Vector3 targetScale = m_Target.transform.localScale;
     Vector3[] targetVertices = GetBoxVertices(1f, 1f, 1f);

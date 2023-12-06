@@ -41,10 +41,14 @@ Shader "PostEffect/DotEffect"
 
             fixed4 frag (v2f i) : SV_Target
             {
-                float blockSize = (sin(_Time.y * 0.3) + sin(_Time.y * 0.27)) * 0.5 * 20 + 40;
+                float blockSize = (sin(_Time.y * 0.2) + sin(_Time.y * 0.17)) * 0.5 * 20 + 30;
                 
-                fixed2 mosaicUV = floor(i.uv * _ScreenParams.xy / blockSize) * blockSize / _ScreenParams.xy;
-                fixed2 fractUV = frac(i.uv * _ScreenParams.xy / blockSize);
+                fixed2 uv = i.uv;
+                fixed2 center = fixed2(0.5,0.5) + fixed2(sin(_Time.y * 0.1) ,cos(_Time.y * 0.14)) * 0.25;
+                uv -= center;
+                fixed2 mosaicUV = floor(uv * _ScreenParams.xy / blockSize) * blockSize / _ScreenParams.xy;
+                fixed2 fractUV = frac(uv * _ScreenParams.xy / blockSize);
+                mosaicUV += center;
                 fixed4 col = tex2D(_MainTex, mosaicUV);
                 float ballCol = length(fractUV - fixed2(0.5, 0.5));
                 return ballCol < 0.3 * col.r ? col : fixed4(0,0,0,0);

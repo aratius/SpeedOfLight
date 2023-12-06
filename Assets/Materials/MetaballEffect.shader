@@ -60,7 +60,7 @@ Shader "PostEffect/MetaballEffect"
                 // 閾値に基づいて色を設定
                 // col = sum > threshold ? col : fixed4(0, 0, 0, 1);
                 // col = sum > threshold ? fixed4(1,1,1,1) : fixed4(0, 0, 0, 1);
-                col = sum > threshold ? fixed4(i.uv.x,i.uv.y,1,1) : fixed4(0, 0, 0, 1);
+                col = sum > threshold ? fixed4(1,1,1,1) : fixed4(0, 0, 0, 1);
 
                 return col;
             }
