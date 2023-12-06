@@ -412,7 +412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_DontDestroyOnLoad: 1
-  m_Port: 8002
+  m_Port: 8001
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

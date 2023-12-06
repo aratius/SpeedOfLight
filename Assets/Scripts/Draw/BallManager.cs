@@ -51,7 +51,8 @@ public class BallManager : MonoBehaviour
     GameObject prefabPickedUp = m_Prefabs[(int)Mathf.Floor(Random.Range(0, m_Prefabs.Length))];
     GameObject go = Instantiate(prefabPickedUp, transform);
     go.transform.localPosition = new Vector3(Random.Range(-3f, 3f), Random.Range(verticalMin, verticalMax), 0);
-    go.transform.localScale = Vector3.one * Random.Range(.2f, .4f);
+    go.transform.localScale = Vector3.one * Random.Range(.3f, .8f);
+    // go.transform.localScale = Vector3.one * Random.Range(.2f, .4f);
     m_Balls.Add(go);
     Ball ballScript = go.AddComponent<Ball>();
     ballScript.OnCollideDestroyer.AddListener(OnCollideDestroyer);

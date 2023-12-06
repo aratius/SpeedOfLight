@@ -17,21 +17,26 @@ public class Ball : MonoBehaviour
     m_Rigid.useGravity = true;
     m_Rigid.mass = transform.localScale.x * 3f;
 
-    MeshRenderer r = GetComponent<MeshRenderer>();
-    r.material = new Material(r.material.shader);
+    // MeshRenderer r = GetComponent<MeshRenderer>();
+    // r.material = new Material(r.material.shader);
     // Color[] colors = {
     //   new Color(249f / 255f, 61f / 255f, 64f / 255f, 1),
     //   new Color(9f / 255f, 166f / 255f, 208f / 255f, 1),
     //   new Color(2f / 255f, 31f / 255f, 161f / 255f, 1),
     //   new Color(250f / 255f, 186f / 255f, 75f / 255f, 1)
     // };
-    Color[] colors = {
-      new Color(100f / 255f, 100f / 255f, 100f / 255f, 1),
-      new Color(150f / 255f, 150f / 255f, 150f / 255f, 1),
-      new Color(200f / 255f, 200f / 255f, 200f / 255f, 1),
-    };
-    Color c = colors[(int)Mathf.Floor(Random.Range(0, colors.Length))];
-    r.material.SetColor("_MainColor", c);
+    // Color[] colors = {
+    //   new Color(100f / 255f, 100f / 255f, 100f / 255f, 1),
+    //   new Color(75f / 255f, 75f / 255f, 75f / 255f, 1),
+    //   new Color(50f / 255f, 50f / 255f, 50f / 255f, 1),
+    // };
+    // Color[] colors = {
+    //   new Color(0f / 255f, 0f / 255f, 100f / 255f, 1),
+    //   new Color(0f / 255f, 0f / 255f, 75f / 255f, 1),
+    //   new Color(0f / 255f, 0f / 255f, 50f / 255f, 1),
+    // };
+    // Color c = colors[(int)Mathf.Floor(Random.Range(0, colors.Length))];
+    // r.material.SetColor("_MainColor", c);
   }
 
 
