@@ -58,7 +58,7 @@ Shader "Unlit/MyFaceSphereAnim"
                 // sample the texture
                 fixed2 uv = i.uv;   
                 uv.x = frac(uv.x * 2);
-                uv.y = frac(uv.y * 1.5 - easeInOut(frac(_Time.y)) + floor(_Time.y) + 0.4);                
+                uv.y = frac(uv.y * 1.5 - easeInOut(frac(_Time.y)) + floor(_Time.y) + 0.65);                
                 fixed4 col = tex2D(_MainTex, uv);
                 // apply fog
                 // UNITY_APPLY_FOG(i.fogCoord, col);
